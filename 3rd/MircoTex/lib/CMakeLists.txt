@@ -216,7 +216,7 @@ if (_HAS_MICROTEX_INSTALL)
         microtex
         HEADERS ${CMAKE_CURRENT_BINARY_DIR}/microtexconfig.h microtexexport.h microtex.h microtexapi.h
     )
-    microtex_install_headers(microtex PREFIX utils HEADERS utils/types.h utils/log.h utils/utils.h)
+    microtex_install_headers(microtex PREFIX utils HEADERS utils/types.h)
     microtex_install_headers(microtex PREFIX render HEADERS render/render.h)
     microtex_install_headers(microtex PREFIX unimath HEADERS unimath/font_src.h unimath/font_meta.h)
     microtex_install_headers(

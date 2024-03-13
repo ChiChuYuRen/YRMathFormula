@@ -10,12 +10,6 @@ package("qtadvanceddocking")
         "-DADS_VERSION=4.2.1",
         "-DBUILD_EXAMPLES=OFF",
         "-DCMAKE_PREFIX_PATH=" .. qt.sdkdir}
-            
-    -- if is_mode("debug") then
-    --     table.insert(configs, "-DCMAKE_BUILD_TYPE=" .. ("Debug"))
-    -- else 
-    --     table.insert(configs, "-DCMAKE_BUILD_TYPE=" .. ("Release"))
-    -- end 
 table.insert(configs, "-DCMAKE_BUILD_TYPE=" .. (package:is_debug() and "Debug" or "Release"))
         import("package.tools.cmake").install(package, configs)
     end)
@@ -39,13 +33,7 @@ package("MircoTex")
     on_install(function (package)
         import("detect.sdks.find_qt")
         local qt = find_qt(nil,{verbose = true})
-        local configs = {"-DHAVE_AUTO_FONT_FIND=ON","-DCMAKE_PREFIX_PATH=" .. qt.sdkdir}--"-DQT=ON",
-            
-    -- if is_mode("debug") then
-    --     table.insert(configs, "-DCMAKE_BUILD_TYPE=" .. ("Debug"))
-    -- else 
-    --     table.insert(configs, "-DCMAKE_BUILD_TYPE=" .. ("Release"))
-    -- end 
+        local configs = {"-DHAVE_AUTO_FONT_FIND=ON","-DQT=ON","-DCMAKE_PREFIX_PATH=" .. qt.sdkdir}
     table.insert(configs, "-DCMAKE_BUILD_TYPE=" .. (package:is_debug() and "Debug" or "Release"))
         import("package.tools.cmake").install(package, configs)
     end)
