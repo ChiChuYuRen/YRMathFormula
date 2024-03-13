@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="FiraMathclm1">../../res/firamath/FiraMath-Regular.clm1</file>
+        <file alias="FiraMathclm2">../../res/firamath/FiraMath-Regular.clm2</file>
+        <file alias="FiraMathotf">../../res/firamath/FiraMath-Regular.otf</file>
+    </qresource>
+</RCC>
