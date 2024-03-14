@@ -13,8 +13,9 @@
 #include <QtAdvancedStylesheet.h>
 
 // MicroTex
-#include <microtex.h>
 #include <graphic_qt.h>
+#include <microtex.h>
+
 /**
  * Private data class - pimpl
  */
@@ -50,7 +51,6 @@ class MainWindowPrivate
 MainWindowPrivate::~MainWindowPrivate()
 {
     releaseMicroTex();
-    
 }
 
 void MainWindowPrivate::releaseMicroTex()
@@ -60,23 +60,20 @@ void MainWindowPrivate::releaseMicroTex()
 
 void MainWindowPrivate::setupMicroTex()
 {
-    //QString clm(QStringLiteral("D:/Program/tex/MicroTeX/res/firamath/FiraMath-Regular.clm2"));
-	    QString otf(QStringLiteral("D:/Program/tex/MicroTeX/res/firamath/FiraMath-Regular.otf"));
-	microtex::MicroTeX::setRenderGlyphUsePath(true);
-    QString clmfile(":/YRMathFormula/XITSMath");
+    // QString clm(QStringLiteral("D:/Program/tex/MicroTeX/res/firamath/FiraMath-Regular.clm2"));
+    QString otf(QStringLiteral("D:/Program/tex/MicroTeX/res/firamath/FiraMath-Regular.otf"));
+    microtex::MicroTeX::setRenderGlyphUsePath(true);
+    QString clmfile(":/clm/XITSMath");
     QFile file(clmfile);
     file.open(QIODevice::ReadOnly);
     QByteArray data(file.readAll());
-    const microtex::FontSrcData math(data.length(), reinterpret_cast<microtex::u8*>(data.data()), "");
+    const microtex::FontSrcData math(data.length(), reinterpret_cast<microtex::u8 *>(data.data()), "");
 
-    //const microtex::FontSrcFile math{clm.toStdString(), otf.toStdString()};
+    // const microtex::FontSrcFile math{clm.toStdString(), otf.toStdString()};
     microtex::MicroTeX::init(math);
 
-	
-
-	microtex::PlatformFactory::registerFactory("qt",std::make_unique<microtex::PlatformFactory_qt>());
-	microtex::PlatformFactory::activate("qt");
-    
+    microtex::PlatformFactory::registerFactory("qt", std::make_unique<microtex::PlatformFactory_qt>());
+    microtex::PlatformFactory::activate("qt");
 }
 
 /**
@@ -156,7 +153,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), d_ptr(new MainWin
 
 MainWindow::~MainWindow()
 {
-	delete d_ptr;
+    delete d_ptr;
 }
 
 void MainWindowPrivate::initUI()
@@ -189,7 +186,7 @@ void MainWindowPrivate::setupAcss()
     QObject::connect(m_advancedStyleSheet, SIGNAL(stylesheetChanged()), m_this,
                      SLOT(onStyleManagerStylesheetChanged()));
 
-    createThemeColorDockWidget();
+    // createThemeColorDockWidget();
     fillThemeMenu();
 }
 /**

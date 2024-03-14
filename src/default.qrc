@@ -1,0 +1,14 @@
+﻿<RCC>
+    <qresource prefix="/clm">
+    <file alias="Garamond-Math">clm/Garamond-Math.clm2</file>
+    <file alias="latinmodern-math">clm/latinmodern-math.clm2</file>
+    <file alias="LibertinusMath-Regular">clm/LibertinusMath-Regular.clm2</file>
+    <file alias="STIXTwoMath-Regular">clm/STIXTwoMath-Regular.clm2</file>
+    <file alias="texgyrebonum-math">clm/texgyrebonum-math.clm2</file>
+    <file alias="texgyredejavu-math">clm/texgyredejavu-math.clm2</file>
+    <file alias="texgyrepagella-math">clm/texgyrepagella-math.clm2</file>
+    <file alias="texgyreschola-math">clm/texgyreschola-math.clm2</file>
+    <file alias="texgyretermes-math">clm/texgyretermes-math.clm2</file>
+    <file alias="XITSMath-Regular">clm/XITSMath-Regular.clm2</file>
+    </qresource>
+</RCC>

@@ -1,6 +1,0 @@
-<RCC>
-    <qresource prefix="/YRMathFormula">
-        <file alias="texgyredejavu">resources/font/texgyredejavu-math.clm2</file>
-        <file alias="XITSMath">resources/font/XITSMath-Regular.clm2</file>
-    </qresource>
-</RCC>
