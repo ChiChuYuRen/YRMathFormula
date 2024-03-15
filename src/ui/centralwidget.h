@@ -15,15 +15,6 @@ class CentralWidget : public QWidget
   private:
     friend class CentralWidgetPrivate;
     CentralWidgetPrivate *d_ptr; // pimpl
-    
-protected slots:
 
-  void nextClicked();
-
-  void renderClicked();
-
-  void saveClicked();
-
-  void fontSizeChanged(int size);
 
 };

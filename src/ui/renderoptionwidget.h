@@ -21,7 +21,9 @@ protected slots:
 
 	void saveClicked();
 
-	void fontSizeChanged(int size);
+    void fontSizeChanged(int size);
+
+    void fontChanged(const QString& font);
 
 private:
 	RenderOptionWidgetPrivate* d_ptr;

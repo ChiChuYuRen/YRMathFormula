@@ -7,9 +7,11 @@ if is_plat("windows") then
     if is_mode("debug") then
         set_runtimes("MDd")
         add_requires("qtadvanceddocking","MircoTex",  { debug = is_mode("debug") })
+        -- add_requires("CTK", { debug = is_mode("debug") })
     else
         set_runtimes("MD")        
-        add_requires("qtadvanceddocking","MircoTex")
+        add_requires("qtadvanceddocking","MircoTex",{ debug = is_mode("debug") })
+        -- add_requires("CTK", { debug = is_mode("debug") })
     end
 else 
     add_requires("qtadvanceddocking","MircoTex",{ debug = is_mode("debug") })

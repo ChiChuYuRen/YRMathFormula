@@ -1,6 +1,6 @@
 ﻿#include "mainwindow.h"
 #include "ui/centralwidget.h"
-
+#include "manager/microtexmanager.h"
 // Qt
 #include <QActionGroup>
 #include <QApplication>
@@ -43,37 +43,33 @@ class MainWindowPrivate
 
     /// \brief 初始化MicroTex引擎
     void setupMicroTex();
-    void releaseMicroTex();
 
     void updateThemeColorButtons();
 };
 
 MainWindowPrivate::~MainWindowPrivate()
 {
-    releaseMicroTex();
+    
 }
 
-void MainWindowPrivate::releaseMicroTex()
-{
-    microtex::MicroTeX::release();
-}
 
 void MainWindowPrivate::setupMicroTex()
 {
-    // QString clm(QStringLiteral("D:/Program/tex/MicroTeX/res/firamath/FiraMath-Regular.clm2"));
-    QString otf(QStringLiteral("D:/Program/tex/MicroTeX/res/firamath/FiraMath-Regular.otf"));
-    microtex::MicroTeX::setRenderGlyphUsePath(true);
-    QString clmfile(":/clm/XITSMath");
-    QFile file(clmfile);
-    file.open(QIODevice::ReadOnly);
-    QByteArray data(file.readAll());
-    const microtex::FontSrcData math(data.length(), reinterpret_cast<microtex::u8 *>(data.data()), "");
+    //// QString clm(QStringLiteral("D:/Program/tex/MicroTeX/res/firamath/FiraMath-Regular.clm2"));
+    //QString otf(QStringLiteral("D:/Program/tex/MicroTeX/res/firamath/FiraMath-Regular.otf"));
+    //microtex::MicroTeX::setRenderGlyphUsePath(true);
+    //QString clmfile(":/clm/Garamond-Math");
+    //QFile file(clmfile);
+    //file.open(QIODevice::ReadOnly);
+    //QByteArray data(file.readAll());
+    //const microtex::FontSrcData math(data.length(), reinterpret_cast<microtex::u8 *>(data.data()), "");
 
-    // const microtex::FontSrcFile math{clm.toStdString(), otf.toStdString()};
-    microtex::MicroTeX::init(math);
+    //// const microtex::FontSrcFile math{clm.toStdString(), otf.toStdString()};
+    //microtex::MicroTeX::init(math);
 
-    microtex::PlatformFactory::registerFactory("qt", std::make_unique<microtex::PlatformFactory_qt>());
-    microtex::PlatformFactory::activate("qt");
+    //microtex::PlatformFactory::registerFactory("qt", std::make_unique<microtex::PlatformFactory_qt>());
+    //microtex::PlatformFactory::activate("qt");
+    MicroTexManager::autoFontPathInit();
 }
 
 /**

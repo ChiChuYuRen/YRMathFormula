@@ -1,4 +1,4 @@
-#ifndef MICROTEX_QT_TEX_RENDER_H
+﻿#ifndef MICROTEX_QT_TEX_RENDER_H
 #define MICROTEX_QT_TEX_RENDER_H
 #include <string>
 class TeXRender

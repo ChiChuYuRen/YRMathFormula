@@ -102,25 +102,5 @@ CentralWidget::~CentralWidget()
 	delete d_ptr;
 }
 
-void CentralWidget::fontSizeChanged(int size)
-{
-	d_ptr->_render->setTextSize(size);
-}
 
-void CentralWidget::nextClicked()
-{
-	auto sample = d_ptr->_samples.next();
-	d_ptr->_textedit->setText(QString::fromStdString(sample));
-	d_ptr->_render->setLaTeX(sample);
-}
 
-void CentralWidget::renderClicked()
-{
-	QString text = d_ptr->_textedit->toPlainText();
-	d_ptr->_render->setLaTeX(text.toStdString());
-}
-
-void CentralWidget::saveClicked()
-{
-	d_ptr->_render->saveSVG("out.svg");
-}
