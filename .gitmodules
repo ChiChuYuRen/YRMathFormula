@@ -4,9 +4,6 @@
 [submodule "3rd/qtadvancedcss"]
 	path = 3rd/qtadvancedcss
 	url = https://github.com/ChiChuYuRen/Qt-Advanced-Stylesheets.git
-[submodule "3rd/ads"]
-	path = 3rd/ads
-	url = https://github.com/ChiChuYuRen/Qt-Advanced-Docking-System.git
 [submodule "3rd/CTK"]
 	path = 3rd/CTK
 	url = https://github.com/ChiChuYuRen/CTK.git
