@@ -15,14 +15,12 @@ MicroTexManager::~MicroTexManager()
 }
 
 void MicroTexManager::autoFontPathInit()
-{
-	microtex::MicroTeX::setRenderGlyphUsePath(true);
+{//TODO:解决加载大量字体占用内存过大问题
+    microtex::MicroTeX::setRenderGlyphUsePath(true);
     microtex::InitFontSenseAuto autoPath;
     microtex::Init variant;
     variant = autoPath;
     microtex::MicroTeX::init(variant);
-
-
 
     microtex::PlatformFactory::registerFactory("qt", std::make_unique<microtex::PlatformFactory_qt>());
     microtex::PlatformFactory::activate("qt");
@@ -45,7 +43,7 @@ void MicroTexManager::setDefaultFontInit(const QString &clm, const QString &font
     microtex::PlatformFactory::activate("qt");
 }
 
-void MicroTexManager::setDefaultFont(const QString& clm)
+void MicroTexManager::setDefaultFont(const QString &clm)
 {
     microtex::MicroTeX::setDefaultMathFont(clm.toStdString());
 }
@@ -67,4 +65,26 @@ QString MicroTexManager::getDefaultFont() const
 void MicroTexManager::release()
 {
     microtex::MicroTeX::release();
+}
+
+QStringList MicroTexManager::getMathFontNames()
+{
+    QStringList list;
+    std::vector<std::string> fonts = microtex::MicroTeX::mathFontNames();
+    for (const auto &font : fonts)
+    {
+        list.append(QString::fromStdString(font));
+    }
+    return list;
+}
+
+QStringList MicroTexManager::getFontFamilies()
+{
+    QStringList list;
+    std::vector<std::string> fonts = microtex::MicroTeX::mainFontFamilies();
+    for (const auto &font : fonts)
+    {
+        list.append(QString::fromStdString(font));
+    }
+    return list;
 }

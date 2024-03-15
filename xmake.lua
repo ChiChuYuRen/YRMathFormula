@@ -6,8 +6,7 @@ set_languages("c++20")
 if is_plat("windows") then
     if is_mode("debug") then
         set_runtimes("MDd")
-        add_requires("ads","MicroTex",  { debug = is_mode("debug") })
-        add_requires("CTK", { debug = is_mode("debug") })
+        add_requires("ads","MicroTex", "CTK", { debug = is_mode("debug") })
     else
         set_runtimes("MD")        
         add_requires("ads","MicroTex","CTK")
@@ -21,7 +20,7 @@ else
 end
 
 if is_plat("windows") then
-    set_optimize("fastest")  -- faster: -O2  fastest: -Ox  none: -O0
+    -- set_optimize("fastest")  -- faster: -O2  fastest: -Ox  none: -O0
     add_cxflags("/EHsc")
     add_ldflags("/SAFESEH:NO")
 elseif is_plat("mingw") then

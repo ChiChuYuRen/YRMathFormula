@@ -1,4 +1,5 @@
 ﻿#include "qttexrenderwidget.h"
+#include "qfont.h"
 // MicroTex
 #include <graphic_qt.h>
 
@@ -114,6 +115,7 @@ void QtTeXRenderWidget::paintEvent(QPaintEvent *event)
     if (d_ptr->m_render != nullptr)
     {
         QPainter p(this);
+        p.setFont(QFont("MiSans", d_ptr->m_textSize));
         p.setRenderHint(QPainter::Antialiasing, true);
         Graphics2D_qt g2(&p);
         d_ptr->m_render->draw(g2, d_ptr->m_padding, d_ptr->m_padding);
@@ -123,15 +125,17 @@ void QtTeXRenderWidget::paintEvent(QPaintEvent *event)
 void QtTeXRenderWidget::saveSVG(const char *path)
 {
 
-    // QString filePath = QFileDialog::getSaveFileName(this, "Save SVG",
+    QString filePath = QFileDialog::getSaveFileName(this, "Save SVG",
 
-    //                                                 "", "SVG files (*.svg)");
+                                                    "", "SVG files (*.svg)");
 
-    QString filePath = ctkFileDialog::getSaveFileName(this, "Save SVG",
+    // QString filePath = ctkFileDialog::getSaveFileName(this, "Save SVG",
 
-                                                      "", "SVG files (*.svg)");
+    //                                                   "", "SVG files (*.svg)");
     if (filePath == "")
+    {
         return;
+    }
 #ifdef QT_DEBUG
     QTime t;
     t.start();
@@ -154,8 +158,8 @@ void QtTeXRenderWidget::saveSVG(const char *path)
 
     m_painter.setRenderHint(QPainter::Antialiasing, true);
     microtex::Graphics2D_qt g2(&m_painter);
-    // render->draw(g2, d_ptr->m_padding, d_ptr->m_padding);
-    render->draw(g2, 0, 0);
+    render->draw(g2, d_ptr->m_padding, d_ptr->m_padding);
+    // render->draw(g2, 0, 0);
     // ok = img.save(pngName);
     m_painter.end();
 #ifdef QT_DEBUG

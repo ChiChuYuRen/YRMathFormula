@@ -8,9 +8,10 @@
 
 int main(int argc, char *argv[])
 {
-	
-	// load res from libqnanopainter
-    //Q_INIT_RESOURCE(libqnanopainterdata);
+
+    // load res from libqnanopainter
+    // Q_INIT_RESOURCE(ads_CMAKE_);
+
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
     QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);

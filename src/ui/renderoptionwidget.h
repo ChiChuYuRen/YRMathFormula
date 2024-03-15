@@ -6,26 +6,25 @@ class QTextEdit;
 
 class RenderOptionWidget : public QWidget
 {
-	Q_OBJECT
+    Q_OBJECT
 
-public:
-	explicit RenderOptionWidget(QWidget* parent = nullptr);
-	~RenderOptionWidget();
-	void setTexEdit(QTextEdit* p_edit);
+  public:
+    explicit RenderOptionWidget(QWidget *parent = nullptr);
+    ~RenderOptionWidget();
+    void setTexEdit(QTextEdit *p_edit);
 
-protected slots:
-	void updateStyle();
-	void nextClicked();
+  private slots:
+    void nextClicked();
 
-	void renderClicked();
+    void renderClicked();
 
-	void saveClicked();
+    void saveClicked();
 
     void fontSizeChanged(int size);
 
-    void fontChanged(const QString& font);
+    void fontChanged(const QString &font);
 
-private:
-	RenderOptionWidgetPrivate* d_ptr;
-	friend class RenderOptionWidgetPrivate;
+  private:
+    RenderOptionWidgetPrivate *d_ptr;
+    friend class RenderOptionWidgetPrivate;
 };

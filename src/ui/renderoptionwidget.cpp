@@ -61,19 +61,11 @@ void RenderOptionWidgetPrivate::initUI()
     auto *nextBtn = new QPushButton(QStringLiteral("下一个示例"));
     auto *renderBtn = new QPushButton(QStringLiteral("渲染"));
     auto *saveBtn = new QPushButton(QStringLiteral("保存为SVG图片"));
-    auto *updateBtn = new QPushButton(QStringLiteral("更新主题"));
 
     QMap<QString, QString> fontMap;
     fontMap.insert("Garamond", "Garamond-Math");
-    fontMap.insert("latinmodern", "latinmodern-math");
-    fontMap.insert("LibertinusMath", "LibertinusMath-Regular");
-    fontMap.insert("STIXTwoMath", "STIXTwoMath-Regular");
-    fontMap.insert("texgyrebonum", "texgyrebonum-math");
-    fontMap.insert("texgyredejavu", "texgyredejavu-math");
-    fontMap.insert("texgyrepagella", "texgyrepagella-math");
-    fontMap.insert("texgyreschola", "texgyreschola-math");
-    fontMap.insert("texgyretermes", "texgyretermes-math");
-    fontMap.insert("XITSMath", "XITSMath-Regular");
+    fontMap.insert("latinmodern", "LatinModernMath-Regular");
+    fontMap.insert("STIXTwoMath", "STIX Two Math");
 
     m_fontComboBox = new QComboBox();
     foreach (const QString &fontName, fontMap.keys())
@@ -87,7 +79,6 @@ void RenderOptionWidgetPrivate::initUI()
     toolLay->addWidget(renderBtn);
     toolLay->addWidget(m_fontComboBox);
     toolLay->addWidget(saveBtn);
-    toolLay->addWidget(updateBtn);
 
     toolWidget->setLayout(toolLay);
 
@@ -100,7 +91,7 @@ void RenderOptionWidgetPrivate::initUI()
     QObject::connect(nextBtn, &QPushButton::clicked, m_this, &RenderOptionWidget::nextClicked);
     QObject::connect(renderBtn, &QPushButton::clicked, m_this, &RenderOptionWidget::renderClicked);
     QObject::connect(saveBtn, &QPushButton::clicked, m_this, &RenderOptionWidget::saveClicked);
-    QObject::connect(updateBtn, &QPushButton::clicked, m_this, &RenderOptionWidget::updateStyle);
+
     QObject::connect(m_fontComboBox, SIGNAL(currentIndexChanged(QString)), m_this, SLOT(fontChanged(QString)));
     QObject::connect(sizeBox, SIGNAL(valueChanged(int)), m_this, SLOT(fontSizeChanged(int)));
 }
@@ -130,11 +121,7 @@ void RenderOptionWidget::fontChanged(const QString &font)
     MicroTexManager::setDefaultFont(d_ptr->m_fontComboBox->currentData().toString());
     d_ptr->_render->setLaTeX(text.toStdString());
 }
-void RenderOptionWidget::updateStyle()
-{
-    // QtConcurrent::run(this,&RenderOptionWidget::updatess);
-    QtConcurrent::run([this]() { ACSSManager::getInstance()->updateStyleSheet(); });
-}
+
 void RenderOptionWidget::nextClicked()
 {
     auto sample = d_ptr->_samples.next();

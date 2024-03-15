@@ -1210,3 +1210,20 @@ QSizeGrip {
   height: 16px;
 }
 
+/*****************************************************************************
+ * CAutoHideDockContainer titlebar buttons
+ *****************************************************************************/
+#dockAreaAutoHideButton {
+	qproperty-icon: url(:/ads/images/vs-pin-button.svg);
+	qproperty-iconSize: 16px;
+}
+
+ads--CAutoHideDockContainer #dockAreaAutoHideButton {
+	qproperty-icon: url(:/ads/images/vs-pin-button-pinned-focused.svg);
+	qproperty-iconSize: 16px;
+}
+
+#tabsMenuButton {
+	qproperty-icon: url(:/ads/images/tabs-menu-button.svg);
+	qproperty-iconSize: 16px;
+}

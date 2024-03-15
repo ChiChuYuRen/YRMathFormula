@@ -1,6 +1,7 @@
 ﻿#include "mainwindow.h"
-#include "ui/centralwidget.h"
 #include "manager/microtexmanager.h"
+#include "ui/centralwidget.h"
+
 // Qt
 #include <QActionGroup>
 #include <QApplication>
@@ -49,26 +50,10 @@ class MainWindowPrivate
 
 MainWindowPrivate::~MainWindowPrivate()
 {
-    
 }
-
 
 void MainWindowPrivate::setupMicroTex()
 {
-    //// QString clm(QStringLiteral("D:/Program/tex/MicroTeX/res/firamath/FiraMath-Regular.clm2"));
-    //QString otf(QStringLiteral("D:/Program/tex/MicroTeX/res/firamath/FiraMath-Regular.otf"));
-    //microtex::MicroTeX::setRenderGlyphUsePath(true);
-    //QString clmfile(":/clm/Garamond-Math");
-    //QFile file(clmfile);
-    //file.open(QIODevice::ReadOnly);
-    //QByteArray data(file.readAll());
-    //const microtex::FontSrcData math(data.length(), reinterpret_cast<microtex::u8 *>(data.data()), "");
-
-    //// const microtex::FontSrcFile math{clm.toStdString(), otf.toStdString()};
-    //microtex::MicroTeX::init(math);
-
-    //microtex::PlatformFactory::registerFactory("qt", std::make_unique<microtex::PlatformFactory_qt>());
-    //microtex::PlatformFactory::activate("qt");
     MicroTexManager::autoFontPathInit();
 }
 
@@ -169,8 +154,8 @@ void MainWindowPrivate::setupAcss()
     QString AppDir = qApp->applicationDirPath();
 
     // TODO: Release时修改加载style的路径
-    // StylesDir = AppDir + "/resources/styles";
-    QString StylesDir = "D:/myprogram/YRMathType/src/resources/styles";
+    QString StylesDir = AppDir + "/share/styles";
+    // QString StylesDir = "D:/myprogram/YRMathType/src/resources/styles";
     m_advancedStyleSheet = new acss::QtAdvancedStylesheet(m_this);
     m_advancedStyleSheet->setStylesDirPath(StylesDir);
     m_advancedStyleSheet->setOutputDirPath(AppDir + "/output");
