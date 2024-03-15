@@ -7,3 +7,6 @@
 [submodule "3rd/CTK"]
 	path = 3rd/CTK
 	url = https://github.com/ChiChuYuRen/CTK.git
+[submodule "3rd/log4qt"]
+	path = 3rd/log4qt
+	url = https://github.com/ChiChuYuRen/Log4Qt.git
