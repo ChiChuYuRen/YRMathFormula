@@ -48,27 +48,6 @@ package("MicroTex")
     end)
 package_end()
 
-package("CTK")
-    set_description("A set of common support code for medical imaging, surgical navigation, and related purposes.")
-    add_deps("cmake")
-    set_sourcedir(path.join(os.scriptdir(), "CTK"))
-    on_install(function (package)
-        import("detect.sdks.find_qt")
-        local qt = find_qt(nil,{verbose = true})
-        local configs = {"-DBUILD_TESTING=OFF","-DCTK_ENABLE_PluginFramework=ON","-DCTK_ENABLE_Python_Wrapping=ON","-DCTK_ENABLE_Widgets=ON","-DCTK_LIB_Testing=OFF","-DCMAKE_PREFIX_PATH=" .. qt.sdkdir}
-        if is_plat("windows") then
-            table.insert(configs, "-DCMAKE_CXX_FLAGS=\"/MP\"")
-        end
-        table.insert(configs, "-DCMAKE_BUILD_TYPE=" .. (package:is_debug() and "Debug" or "Release"))
-        import("package.tools.cmake").install(package, configs)
-    end)
-    on_load(function (package)
-        package:add("includedirs","include/ctk-0.1")
-        package:add("libdir","lib/ctk-0.1")
-        package:add("bindir","lib/ctk-0.1")
-    end)
-package_end()
-
 target("qtadvancedcss")
     add_rules("qt.static")
     add_files("qtadvancedcss/src/QtAdvancedStylesheet.cpp")
