@@ -9,7 +9,8 @@
 #include <QPalette>
 #include <QSvgGenerator>
 #include <qdatetime.h>
-
+// CTK
+#include <ctkFileDialog.h>
 #ifdef QT_DEBUG
 #include <QDebug>
 #include <QTimer>
@@ -122,15 +123,19 @@ void QtTeXRenderWidget::paintEvent(QPaintEvent *event)
 void QtTeXRenderWidget::saveSVG(const char *path)
 {
 
-    QString filePath = QFileDialog::getSaveFileName(this, "Save SVG",
+    // QString filePath = QFileDialog::getSaveFileName(this, "Save SVG",
 
-                                                    "", "SVG files (*.svg)");
+    //                                                 "", "SVG files (*.svg)");
+
+    QString filePath = ctkFileDialog::getSaveFileName(this, "Save SVG",
+
+                                                      "", "SVG files (*.svg)");
     if (filePath == "")
         return;
 #ifdef QT_DEBUG
     QTime t;
     t.start();
-	  auto begin = std::chrono::high_resolution_clock::now();
+    auto begin = std::chrono::high_resolution_clock::now();
 #endif
     QSvgGenerator m_generator;
     m_generator.setFileName(filePath);
@@ -154,8 +159,8 @@ void QtTeXRenderWidget::saveSVG(const char *path)
     // ok = img.save(pngName);
     m_painter.end();
 #ifdef QT_DEBUG
-    //qDebug() << QStringLiteral("第一段程序耗时：") << t.elapsed() / 1000.0 << "ms"; // 输出计时
-	auto end = std::chrono::high_resolution_clock::now();
+    // qDebug() << QStringLiteral("第一段程序耗时：") << t.elapsed() / 1000.0 << "ms"; // 输出计时
+    auto end = std::chrono::high_resolution_clock::now();
     auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
     qDebug() << QStringLiteral("第一段程序耗时：") << elapsed.count();
 #endif

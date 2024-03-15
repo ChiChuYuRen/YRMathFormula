@@ -6,15 +6,18 @@ set_languages("c++20")
 if is_plat("windows") then
     if is_mode("debug") then
         set_runtimes("MDd")
-        add_requires("qtadvanceddocking","MircoTex",  { debug = is_mode("debug") })
-        -- add_requires("CTK", { debug = is_mode("debug") })
+        add_requires("ads","MicroTex",  { debug = is_mode("debug") })
+        add_requires("CTK", { debug = is_mode("debug") })
     else
         set_runtimes("MD")        
-        add_requires("qtadvanceddocking","MircoTex",{ debug = is_mode("debug") })
-        -- add_requires("CTK", { debug = is_mode("debug") })
+        add_requires("ads","MicroTex","CTK")
     end
 else 
-    add_requires("qtadvanceddocking","MircoTex",{ debug = is_mode("debug") })
+    if is_mode("debug") then
+        add_requires("ads","MicroTex","CTK",{ debug = is_mode("debug") })
+    else 
+        add_requires("ads","MicroTex","CTK")
+    end 
 end
 
 if is_plat("windows") then
