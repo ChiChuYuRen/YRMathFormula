@@ -8,27 +8,27 @@
 #include <QMutex>
 #include <QObject>
 
-class ACSSManager : QObject
+class ACSSManager : public QObject
 {
     Q_OBJECT
-  private:
+  public:
     explicit ACSSManager(QObject *parent = nullptr);
-    static ACSSManager *_instance;
+    // static ACSSManager *_instance;
 
   public:
-    static ACSSManager *getInstance()
-    {
-        static QMutex mutex;
-        if (!_instance)
-        {
-            QMutexLocker locker(&mutex);
-            if (!_instance)
-            {
-                _instance = new ACSSManager;
-            }
-        }
-        return _instance;
-    }
+    // static ACSSManager *getInstance()
+    // {
+    //     static QMutex mutex;
+    //     if (!_instance)
+    //     {
+    //         QMutexLocker locker(&mutex);
+    //         if (!_instance)
+    //         {
+    //             _instance = new ACSSManager;
+    //         }
+    //     }
+    //     return _instance;
+    // }
 
     void init();
   public slots:

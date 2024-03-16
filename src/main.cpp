@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationName("ChiChuYuRen");
     QCoreApplication::setApplicationName("YRMathFormula");
 
-    YApplication a(argc, argv);
+    YApplication app(argc, argv);
     // Log some debug info
     qInfo("=============================");
     qInfo("%s v%s%s", qUtf8Printable(QApplication::applicationDisplayName()),
@@ -41,8 +41,7 @@ int main(int argc, char *argv[])
     qInfo("CPU: %s", qUtf8Printable(QSysInfo::currentCpuArchitecture()));
     qInfo("File Path: %s", qUtf8Printable(QApplication::applicationFilePath()));
     qInfo("=============================");
+    app.init();
 
-    MainWindow w;
-    w.show();
-    return a.exec();
+    return app.exec();
 }

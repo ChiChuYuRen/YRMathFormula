@@ -118,8 +118,8 @@ void MainWindowPrivate::fillThemeMenu()
     m_menuBar->addMenu(m);
 }
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), d_ptr(new MainWindowPrivate(this))
-
+// MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), d_ptr(new MainWindowPrivate(this))
+MainWindow::MainWindow(QApplication *parent) : app(parent), d_ptr(new MainWindowPrivate(this))
 {
 
     d_ptr->initUI();
@@ -136,6 +136,10 @@ MainWindow::~MainWindow()
 {
     delete d_ptr;
 }
+QMenuBar *MainWindow::getMenuBar() const
+{
+    return d_ptr->m_menuBar;
+}
 
 void MainWindowPrivate::initUI()
 {
@@ -151,24 +155,24 @@ void MainWindowPrivate::initUI()
  */
 void MainWindowPrivate::setupAcss()
 {
-    QString AppDir = qApp->applicationDirPath();
+    // QString AppDir = qApp->applicationDirPath();
 
-    // TODO: Release时修改加载style的路径
-    QString StylesDir = AppDir + "/share/styles";
-    // QString StylesDir = "D:/myprogram/YRMathType/src/resources/styles";
-    m_advancedStyleSheet = new acss::QtAdvancedStylesheet(m_this);
-    m_advancedStyleSheet->setStylesDirPath(StylesDir);
-    m_advancedStyleSheet->setOutputDirPath(AppDir + "/output");
-    m_advancedStyleSheet->setCurrentStyle("qt_material");
-    m_advancedStyleSheet->setDefaultTheme();
-    m_advancedStyleSheet->updateStylesheet();
-    // setWindowIcon(d->AdvancedStyleSheet->styleIcon());
-    qApp->setStyleSheet(m_advancedStyleSheet->styleSheet());
-    QObject::connect(m_advancedStyleSheet, SIGNAL(stylesheetChanged()), m_this,
-                     SLOT(onStyleManagerStylesheetChanged()));
+    // // TODO: Release时修改加载style的路径
+    // QString StylesDir = AppDir + "/share/styles";
+    // // QString StylesDir = "D:/myprogram/YRMathType/src/resources/styles";
+    // m_advancedStyleSheet = new acss::QtAdvancedStylesheet(m_this);
+    // m_advancedStyleSheet->setStylesDirPath(StylesDir);
+    // m_advancedStyleSheet->setOutputDirPath(AppDir + "/output");
+    // m_advancedStyleSheet->setCurrentStyle("qt_material");
+    // m_advancedStyleSheet->setDefaultTheme();
+    // m_advancedStyleSheet->updateStylesheet();
+    // // setWindowIcon(d->AdvancedStyleSheet->styleIcon());
+    // qApp->setStyleSheet(m_advancedStyleSheet->styleSheet());
+    // QObject::connect(m_advancedStyleSheet, SIGNAL(stylesheetChanged()), m_this,
+    //                  SLOT(onStyleManagerStylesheetChanged()));
 
-    // createThemeColorDockWidget();
-    fillThemeMenu();
+    // // createThemeColorDockWidget();
+    // fillThemeMenu();
 }
 /**
  * @brief 设置菜单栏
