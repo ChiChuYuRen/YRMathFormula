@@ -2,15 +2,22 @@
 // Copyright (C) 2021-2023 wangwenx190 (Yuhang Zhao)
 // SPDX-License-Identifier: Apache-2.0
 
+#include "qobject.h"
 #include "yapplication.h"
 
 #include "MainWindow.h"
+#include "utils/sharedlock.h"
 
+#include <QMessageBox>
 int main(int argc, char *argv[])
 {
 
-    // load res from libqnanopainter
-    // Q_INIT_RESOURCE(ads_CMAKE_);
+    SharedLock lock("YRMathFormula");
+    if (!lock.hasLock())
+    {
+        QMessageBox::warning(nullptr, "YRMathFormula", QObject::tr("YRMathFormula is already running"));
+        return 1;
+    }
 
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
     QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -20,9 +27,20 @@ int main(int argc, char *argv[])
 #endif
 #endif
     QCoreApplication::setOrganizationName("ChiChuYuRen");
-    QCoreApplication::setApplicationName("YRMathType");
+    QCoreApplication::setApplicationName("YRMathFormula");
 
     YApplication a(argc, argv);
+    // Log some debug info
+    qInfo("=============================");
+    qInfo("%s v%s%s", qUtf8Printable(QApplication::applicationDisplayName()),
+          qUtf8Printable(QApplication::applicationVersion()), "YRMathFormula");
+    qInfo("Build Date/Time: %s %s", __DATE__, __TIME__);
+    qInfo("Qt: %s", qVersion());
+    qInfo("OS: %s", qUtf8Printable(QSysInfo::prettyProductName()));
+    qInfo("Locale: %s", qUtf8Printable(QLocale::system().name()));
+    qInfo("CPU: %s", qUtf8Printable(QSysInfo::currentCpuArchitecture()));
+    qInfo("File Path: %s", qUtf8Printable(QApplication::applicationFilePath()));
+    qInfo("=============================");
 
     MainWindow w;
     w.show();

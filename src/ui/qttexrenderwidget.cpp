@@ -10,8 +10,7 @@
 #include <QPalette>
 #include <QSvgGenerator>
 #include <qdatetime.h>
-// CTK
-#include <ctkFileDialog.h>
+
 #ifdef QT_DEBUG
 #include <QDebug>
 #include <QTimer>
