@@ -10,3 +10,6 @@
 [submodule "3rd/log4qt"]
 	path = 3rd/log4qt
 	url = https://github.com/ChiChuYuRen/Log4Qt.git
+[submodule "3rd/singleapplication"]
+	path = 3rd/singleapplication
+	url = https://github.com/ChiChuYuRen/SingleApplication.git
