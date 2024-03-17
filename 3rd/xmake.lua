@@ -88,5 +88,12 @@ target("qtadvancedcss")
     add_frameworks("QtCore","QtGui","QtWidgets","QtSvg")
 target_end()
 
+target("singleapplication")
+    add_rules("qt.static")
+    add_files("singleapplication/*.cpp")
+    add_files("singleapplication/*.h")
+    add_includedirs("singleapplication")
+    add_frameworks("QtCore","QtNetwork","QtGui","QtWidgets")
+target_end()
 
 

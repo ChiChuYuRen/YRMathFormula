@@ -12,12 +12,12 @@
 int main(int argc, char *argv[])
 {
 
-    SharedLock lock("YRMathFormula");
-    if (!lock.hasLock())
-    {
-        QMessageBox::warning(nullptr, "YRMathFormula", QObject::tr("YRMathFormula is already running"));
-        return 1;
-    }
+    // SharedLock lock("YRMathFormula");
+    // if (!lock.hasLock())
+    // {
+    //     QMessageBox::warning(nullptr, "YRMathFormula", QObject::tr("YRMathFormula is already running"));
+    //     return 1;
+    // }
 
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
     QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -41,7 +41,22 @@ int main(int argc, char *argv[])
     qInfo("CPU: %s", qUtf8Printable(QSysInfo::currentCpuArchitecture()));
     qInfo("File Path: %s", qUtf8Printable(QApplication::applicationFilePath()));
     qInfo("=============================");
-    app.init();
+    if (app.isPrimary())
+    {
+        app.init();
 
-    return app.exec();
+        return YApplication::exec();
+    }
+    else
+    {
+        qInfo() << "Primary instance already running. PID:" << app.primaryPid();
+
+        app.sendInfoToPrimaryInstance();
+
+        qInfo() << "Secondary instance closing...";
+
+        YApplication::exit(0);
+
+        return 0;
+    }
 }

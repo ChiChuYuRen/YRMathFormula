@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include <QApplication>
-
+#include <SingleApplication>
 #if defined(yApp)
 #undef yApp
 #endif
@@ -9,7 +9,7 @@
 #define yApp (qobject_cast<YApplication *>(QCoreApplication::instance())) // global qvapplication object
 class ACSSManager;
 class MainWindow;
-class YApplication : public QApplication
+class YApplication : public SingleApplication
 {
     Q_OBJECT
 
@@ -26,6 +26,8 @@ class YApplication : public QApplication
         return m_mainWindow;
     }
     void init();
+
+    void sendInfoToPrimaryInstance();
 
   private:
     ACSSManager *m_acssManager;
