@@ -1,6 +1,8 @@
 ﻿#include "mainwindow.h"
 #include "manager/microtexmanager.h"
+#include "qobject.h"
 #include "ui/centralwidget.h"
+#include "yapplication.h"
 
 // Qt
 #include <QActionGroup>
@@ -25,7 +27,7 @@ class MainWindowPrivate
   public:
     MainWindow *m_this;
     // Ui::MainWindow ui;
-    acss::QtAdvancedStylesheet *m_advancedStyleSheet;
+    // acss::QtAdvancedStylesheet *m_advancedStyleSheet;
     QVector<QPushButton *> m_themeColorButtons;
     CentralWidget *m_centralWidget;
     QMenuBar *m_menuBar;
@@ -73,7 +75,7 @@ void MainWindowPrivate::createThemeColorDockWidget()
     m_this->addDockWidget(Qt::LeftDockWidgetArea, dock);
     dock->setFloating(true);
 
-    const auto &ThemeColors = m_advancedStyleSheet->themeColorVariables();
+    const auto &ThemeColors = yApp->getACSSManager()->themeColorVariables();
     for (auto itc = ThemeColors.constBegin(); itc != ThemeColors.constEnd(); ++itc)
     {
         auto *Button = new QPushButton(itc.key());
@@ -92,7 +94,7 @@ void MainWindowPrivate::updateThemeColorButtons()
 {
     for (auto *Button : m_themeColorButtons)
     {
-        auto Color = m_advancedStyleSheet->themeColor(Button->text());
+        auto Color = yApp->getACSSManager()->themeColor(Button->text());
         QString TextColor = (Color.value() < 128) ? "#ffffff" : "#000000";
         QString ButtonStylesheet = QString("background-color: %1; color: %2;"
                                            "border: none;")
@@ -109,7 +111,7 @@ void MainWindowPrivate::fillThemeMenu()
 {
 
     auto *m = new QMenu(QObject::tr("Theme"));
-    for (const auto &Theme : m_advancedStyleSheet->themes())
+    for (const auto &Theme : yApp->getACSSManager()->themes())
     {
         QAction *a = new QAction(Theme);
         m->addAction(a);
@@ -155,24 +157,10 @@ void MainWindowPrivate::initUI()
  */
 void MainWindowPrivate::setupAcss()
 {
-    // QString AppDir = qApp->applicationDirPath();
-
-    // // TODO: Release时修改加载style的路径
-    // QString StylesDir = AppDir + "/share/styles";
-    // // QString StylesDir = "D:/myprogram/YRMathType/src/resources/styles";
-    // m_advancedStyleSheet = new acss::QtAdvancedStylesheet(m_this);
-    // m_advancedStyleSheet->setStylesDirPath(StylesDir);
-    // m_advancedStyleSheet->setOutputDirPath(AppDir + "/output");
-    // m_advancedStyleSheet->setCurrentStyle("qt_material");
-    // m_advancedStyleSheet->setDefaultTheme();
-    // m_advancedStyleSheet->updateStylesheet();
-    // // setWindowIcon(d->AdvancedStyleSheet->styleIcon());
-    // qApp->setStyleSheet(m_advancedStyleSheet->styleSheet());
-    // QObject::connect(m_advancedStyleSheet, SIGNAL(stylesheetChanged()), m_this,
-    //                  SLOT(onStyleManagerStylesheetChanged()));
-
-    // // createThemeColorDockWidget();
-    // fillThemeMenu();
+    QObject::connect(yApp->getACSSManager(), SIGNAL(stylesheetChanged()), m_this,
+                     SLOT(onStyleManagerStylesheetChanged()));
+    createThemeColorDockWidget();
+    fillThemeMenu();
 }
 /**
  * @brief 设置菜单栏
@@ -208,13 +196,13 @@ void MainWindowPrivate::setupMenuBar()
 void MainWindow::onThemeActionTriggered()
 {
     auto *Action = qobject_cast<QAction *>(sender());
-    d_ptr->m_advancedStyleSheet->setCurrentTheme(Action->text());
-    d_ptr->m_advancedStyleSheet->updateStylesheet();
+    yApp->getACSSManager()->setCurrentTheme(Action->text());
+    yApp->getACSSManager()->updateStylesheet();
 }
 
 void MainWindow::onStyleManagerStylesheetChanged()
 {
-    qApp->setStyleSheet(d_ptr->m_advancedStyleSheet->styleSheet());
+    yApp->setStyleSheet(yApp->getACSSManager()->styleSheet());
     d_ptr->updateThemeColorButtons();
 }
 /**
@@ -225,13 +213,13 @@ void MainWindow::onThemeColorButtonClicked()
 {
     auto *Button = qobject_cast<QPushButton *>(sender());
     QColorDialog ColorDialog;
-    auto Color = d_ptr->m_advancedStyleSheet->themeColor(Button->text());
+    auto Color = yApp->getACSSManager()->themeColor(Button->text());
     ColorDialog.setCurrentColor(Color);
     if (ColorDialog.exec() != QDialog::Accepted)
     {
         return;
     }
     Color = ColorDialog.currentColor();
-    d_ptr->m_advancedStyleSheet->setThemeVariableValue(Button->text(), Color.name());
-    d_ptr->m_advancedStyleSheet->updateStylesheet();
+    yApp->getACSSManager()->setThemeVariableValue(Button->text(), Color.name());
+    yApp->getACSSManager()->updateStylesheet();
 }

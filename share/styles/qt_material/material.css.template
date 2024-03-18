@@ -5,7 +5,6 @@
 
 *{
   color: {{secondaryTextColor}};
-  font-family: {{font_family}};
   line-height: {{line_height}};
   font-size: {{font_size}};
   selection-background-color: {{primaryLightColor}};
@@ -382,21 +381,22 @@ QTabBar::close-button:hover {
 QGroupBox {
   background-color: {{secondaryColor}};
   border-radius: 4px;
-  padding: 15px;
-  padding-top: 30px;
-  line-height: 13px;
+  padding: 10px;
+  padding-top: 15px;
+  line-height: 6px;
   text-transform: uppercase;
+
 }
 
 QGroupBox::title {
   color: {{secondaryTextColor|opacity(0.4)}};
   subcontrol-origin: margin;
   subcontrol-position: top left;
-  padding: 0 15px;
-  margin-top: 10px;
+  padding: 0 5px;
+  margin-top: 5px;
   background-color: {{secondaryDarkColor}};
   background-color: transparent;
-  height: 20px;
+  height: 10px;
 }
 
 /*  ------------------------------------------------------------------------  */
@@ -407,7 +407,7 @@ QCheckBox {
   spacing: 10px;
   color: {{secondaryTextColor}};
   line-height: 14px;
-  height: 30px;
+  height: 10px;
   background-color: transparent;
   spacing: 5px;
 }
@@ -421,8 +421,8 @@ QCheckBox:disabled {
 /*  General Indicators  */
 
 QGroupBox::indicator {
-  width: 18px;
-  height: 18px;
+  width: 9px;
+  height: 9px;
   border-radius: 3px;
 }
 
@@ -431,8 +431,8 @@ QListView::indicator,
 QTableWidget::indicator,
 QRadioButton::indicator,
 QCheckBox::indicator {
-  width: 24px;
-  height: 24px;
+  width: 12px;
+  height: 12px;
   border-radius: 4px;
  }
 
@@ -606,14 +606,14 @@ QComboBox::indicator:checked:selected {
 QComboBox::item,
 QCalendarWidget QMenu::item,
 QMenu::item {
-  height: 26px;
+  height: 20px;
   border: 8px solid transparent;
   color: {{secondaryTextColor}};
 }
 
 QCalendarWidget QMenu::item,
 QMenu::item {
-  padding: 0px 25px 0px 20px;
+  padding: 0px 20px 0px 20px;
 }
 
 QComboBox::item:selected,
@@ -699,7 +699,7 @@ QMenuBar {
 }
 
 QMenuBar::item {
-  height: 30px;
+  height: 20px;
   padding: 8px;
   background-color: transparent;
   color: {{secondaryTextColor}};
@@ -947,7 +947,7 @@ QTableView::item,
 QTreeView::item,
 QListView::item {
   padding: 5px;
-  min-height: 25px;
+  min-height: 5px;
   color: {{secondaryTextColor}};
   selection-color: {{secondaryTextColor}}; /* For Windows */
   border-color: transparent;  /* Fix #34 */

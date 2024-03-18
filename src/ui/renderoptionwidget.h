@@ -24,6 +24,8 @@ class RenderOptionWidget : public QWidget
 
     void fontChanged(const QString &font);
 
+    void fontBtnClicked();
+
   private:
     RenderOptionWidgetPrivate *d_ptr;
     friend class RenderOptionWidgetPrivate;

@@ -66,6 +66,7 @@ void CentralWidgetPrivate::setupUI()
     texedit->setPlaceholderText("This is the central editor. Enter your text here.");
     texedit->setFontFamily("Monaco");
     CDockWidget *TexEditDockWidget = new CDockWidget("TexEdit");
+    TexEditDockWidget->setFeatures(CDockWidget::DockWidgetPinnable);
     TexEditDockWidget->setWidget(texedit);
     TexEditDockWidget->setMinimumSizeHintMode(CDockWidget::MinimumSizeHintFromDockWidget);
     TexEditDockWidget->resize(250, 150);
@@ -99,6 +100,9 @@ void CentralWidgetPrivate::setupUI()
     LogDockWidget->setMinimumSizeHintMode(CDockWidget::MinimumSizeHintFromDockWidget);
     LogDockWidget->setMinimumSize(200, 150);
     auto LogArea = m_DockManager->addDockWidget(DockWidgetArea::BottomDockWidgetArea, LogDockWidget);
+    const auto logautoHideContainer =
+        m_DockManager->addAutoHideDockWidget(SideBarLocation::SideBarBottom, LogDockWidget);
+    logautoHideContainer->setSize(240);
     QStringList fontNames = MicroTexManager::getMathFontNames();
     foreach (auto font, fontNames)
     {

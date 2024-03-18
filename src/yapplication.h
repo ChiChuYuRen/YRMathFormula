@@ -2,12 +2,13 @@
 
 #include <QApplication>
 #include <SingleApplication>
+
+#include "manager/acssmanager.h"
 #if defined(yApp)
 #undef yApp
 #endif
 
-#define yApp (qobject_cast<YApplication *>(QCoreApplication::instance())) // global qvapplication object
-class ACSSManager;
+#define yApp (qobject_cast<YApplication *>(QCoreApplication::instance())) // global qvapplication objects
 class MainWindow;
 class YApplication : public SingleApplication
 {
@@ -16,7 +17,7 @@ class YApplication : public SingleApplication
   public:
     explicit YApplication(int &argc, char **argv);
     ~YApplication() override;
-
+    void init();
     ACSSManager *getACSSManager()
     {
         return m_acssManager;
@@ -25,7 +26,6 @@ class YApplication : public SingleApplication
     {
         return m_mainWindow;
     }
-    void init();
 
     void sendInfoToPrimaryInstance();
 

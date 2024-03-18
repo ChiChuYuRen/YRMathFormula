@@ -12,6 +12,7 @@
 
 // Qt
 #include <QComboBox>
+#include <QFontDialog>
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QPushButton>
@@ -20,6 +21,7 @@
 #include <QSplitter>
 #include <QVBoxLayout>
 #include <QtConcurrent/QtConcurrent>
+
 
 class RenderOptionWidgetPrivate
 {
@@ -61,7 +63,7 @@ void RenderOptionWidgetPrivate::initUI()
     auto *nextBtn = new QPushButton(QStringLiteral("下一个示例"));
     auto *renderBtn = new QPushButton(QStringLiteral("渲染"));
     auto *saveBtn = new QPushButton(QStringLiteral("保存为SVG图片"));
-
+    auto *fontBtn = new QPushButton(QStringLiteral("设置字体"));
     QMap<QString, QString> fontMap;
     fontMap.insert("Garamond", "Garamond-Math");
     fontMap.insert("latinmodern", "LatinModernMath-Regular");
@@ -79,6 +81,7 @@ void RenderOptionWidgetPrivate::initUI()
     toolLay->addWidget(renderBtn);
     toolLay->addWidget(m_fontComboBox);
     toolLay->addWidget(saveBtn);
+    toolLay->addWidget(fontBtn);
 
     toolWidget->setLayout(toolLay);
 
@@ -91,7 +94,7 @@ void RenderOptionWidgetPrivate::initUI()
     QObject::connect(nextBtn, &QPushButton::clicked, m_this, &RenderOptionWidget::nextClicked);
     QObject::connect(renderBtn, &QPushButton::clicked, m_this, &RenderOptionWidget::renderClicked);
     QObject::connect(saveBtn, &QPushButton::clicked, m_this, &RenderOptionWidget::saveClicked);
-
+    QObject::connect(fontBtn, &QPushButton::clicked, m_this, &RenderOptionWidget::fontBtnClicked);
     QObject::connect(m_fontComboBox, SIGNAL(currentIndexChanged(QString)), m_this, SLOT(fontChanged(QString)));
     QObject::connect(sizeBox, SIGNAL(valueChanged(int)), m_this, SLOT(fontSizeChanged(int)));
 }
@@ -138,4 +141,15 @@ void RenderOptionWidget::renderClicked()
 void RenderOptionWidget::saveClicked()
 {
     d_ptr->_render->saveSVG("out.svg");
+}
+
+void RenderOptionWidget::fontBtnClicked()
+{
+    bool flag = true;
+    QFont font = QFontDialog::getFont(&flag, QApplication::font(), this, QStringLiteral("选择字体"),
+                                      QFontDialog::ScalableFonts | QFontDialog::MonospacedFonts |
+                                          QFontDialog::ProportionalFonts);
+
+    QApplication::setFont(font);
+    yApp->getACSSManager()->changeFont(font.family(),font.pointSize());
 }

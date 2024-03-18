@@ -22,6 +22,7 @@ end
 if is_plat("windows") then
     -- set_optimize("fastest")  -- faster: -O2  fastest: -Ox  none: -O0
     add_cxflags("/EHsc")
+    add_cxflags("/FS")
     add_ldflags("/SAFESEH:NO")
 elseif is_plat("mingw") then
     add_ldflags("-static-libgcc -static-libstdc++ -Wl,-Bstatic -lstdc++ -lwinpthread -Wl,-Bdynamic", {force = true})
