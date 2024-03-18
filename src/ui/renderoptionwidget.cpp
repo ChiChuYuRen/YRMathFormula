@@ -9,19 +9,18 @@
 #include "ui/qttexrenderwidget.h"
 #include "ui/texedit.h"
 #include "yapplication.h"
-
 // Qt
 #include <QComboBox>
 #include <QFontDialog>
 #include <QHBoxLayout>
 #include <QLabel>
+#include <QPlainTextEdit>
 #include <QPushButton>
 #include <QScrollArea>
 #include <QSpinBox>
 #include <QSplitter>
 #include <QVBoxLayout>
 #include <QtConcurrent/QtConcurrent>
-
 
 class RenderOptionWidgetPrivate
 {
@@ -42,6 +41,9 @@ class RenderOptionWidgetPrivate
 
 void RenderOptionWidgetPrivate::initUI()
 {
+#ifdef QT_DEBUG
+    qInfo() << Q_FUNC_INFO << " ," << __FILE__ << " ," << __LINE__;
+#endif
 
     auto *texRenderWidget = new QtTeXRenderWidget();
     // 初始化渲染窗口
@@ -104,10 +106,11 @@ RenderOptionWidget::RenderOptionWidget(QWidget *parent) : QWidget(parent), d_ptr
 
     d_ptr->initUI();
 }
-void RenderOptionWidget::setTexEdit(QTextEdit *p_edit)
+void RenderOptionWidget::setTexEdit(QPlainTextEdit *p_edit)
 {
     d_ptr->_texedit = qobject_cast<TexEdit *>(p_edit);
 }
+
 RenderOptionWidget::~RenderOptionWidget()
 {
     delete d_ptr;
@@ -128,7 +131,7 @@ void RenderOptionWidget::fontChanged(const QString &font)
 void RenderOptionWidget::nextClicked()
 {
     auto sample = d_ptr->_samples.next();
-    d_ptr->_texedit->setText(QString::fromStdString(sample));
+    d_ptr->_texedit->setPlainText(QString::fromStdString(sample));
     d_ptr->_render->setLaTeX(sample);
 }
 
@@ -151,5 +154,5 @@ void RenderOptionWidget::fontBtnClicked()
                                           QFontDialog::ProportionalFonts);
 
     QApplication::setFont(font);
-    yApp->getACSSManager()->changeFont(font.family(),font.pointSize());
+    yApp->getACSSManager()->changeFont(font.family(), font.pointSize());
 }

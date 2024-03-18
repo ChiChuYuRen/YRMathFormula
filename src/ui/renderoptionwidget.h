@@ -2,8 +2,7 @@
 
 #include <QWidget>
 class RenderOptionWidgetPrivate;
-class QTextEdit;
-
+class QPlainTextEdit;
 class RenderOptionWidget : public QWidget
 {
     Q_OBJECT
@@ -11,7 +10,7 @@ class RenderOptionWidget : public QWidget
   public:
     explicit RenderOptionWidget(QWidget *parent = nullptr);
     ~RenderOptionWidget();
-    void setTexEdit(QTextEdit *p_edit);
+    void setTexEdit(QPlainTextEdit *p_edit);
 
   private slots:
     void nextClicked();

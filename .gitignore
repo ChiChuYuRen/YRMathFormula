@@ -4,6 +4,7 @@ build/
 .vscode/
 .cache/
 qt_material/
+3rd/scintilla/scripts/_pychche__/
 
 # MacOS Cache
 .DS_Store

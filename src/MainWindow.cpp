@@ -131,7 +131,8 @@ MainWindow::MainWindow(QApplication *parent) : app(parent), d_ptr(new MainWindow
     setCentralWidget(d_ptr->m_centralWidget);
 
     setWindowTitle(tr("YRMathFormula"));
-    resize(1280, 720);
+   
+
 }
 
 MainWindow::~MainWindow()
