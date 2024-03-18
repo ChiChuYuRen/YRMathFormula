@@ -97,3 +97,22 @@ target("singleapplication")
 target_end()
 
 
+target("scintilla")
+    add_rules("qt.static")
+    add_files("scintilla/src/*.h","scintilla/qt/ScintillaEdit/*.h","scintilla/qt/ScintillaEditBase/*.h")
+    add_files("scintilla/src/*.cxx","scintilla/qt/ScintillaEdit/*.cpp","scintilla/qt/ScintillaEditBase/*.cpp")
+    add_includedirs("scintilla/src","scintilla/qt/ScintillaEdit","scintilla/qt/ScintillaEditBase","scintilla/include")
+    add_defines("SCINTILLA_QT=1 MAKING_LIBRARY=1 SCI_LEXER=1 _CRT_SECURE_NO_DEPRECATE=1")
+    if is_mode("release") then
+        add_defines("EXPORT_IMPORT_API=NDEBUG=1")
+    end
+    add_frameworks("QtCore","QtGui","QtWidgets")
+target_end()
+
+target("lexilla")
+    set_kind("shared")
+    --只添加对LaTex和TeX的支持
+    add_files("lexilla/lexers/LexLaTeX.cxx","lexilla/lexers/LexTeX.cxx")
+    add_files("lexilla/src/*.cxx","lexilla/lexlib/*.cxx","lexilla/access/*.cxx")
+    add_includedirs("lexilla/access","lexilla/lexlib","lexilla/include","lexilla/src","scintilla/include")
+target_end()
