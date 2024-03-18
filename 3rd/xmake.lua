@@ -111,7 +111,7 @@ target_end()
 
 target("lexilla")
     set_kind("shared")
-    --只添加对LaTex和TeX的支持
+    --只添加对LaTex和TeX的支持,对lexilla/src/Lexilla.cxx修改,注释其它语言
     add_files("lexilla/lexers/LexLaTeX.cxx","lexilla/lexers/LexTeX.cxx")
     add_files("lexilla/src/*.cxx","lexilla/lexlib/*.cxx","lexilla/access/*.cxx")
     add_includedirs("lexilla/access","lexilla/lexlib","lexilla/include","lexilla/src","scintilla/include")
