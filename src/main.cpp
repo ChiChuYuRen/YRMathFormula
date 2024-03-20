@@ -30,6 +30,7 @@ int main(int argc, char *argv[])
     QCoreApplication::setApplicationName("YRMathFormula");
 
     YApplication app(argc, argv);
+    app.timerStart();
     // Log some debug info
     qInfo("=============================");
     qInfo("%s v%s%s", qUtf8Printable(QApplication::applicationDisplayName()),

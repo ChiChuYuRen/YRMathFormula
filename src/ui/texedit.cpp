@@ -68,25 +68,31 @@ void TexEdit::updateLineNumberAreaWidth(int /* newBlockCount */)
 // 文本框滚动时同时滚动行数
 void TexEdit::updateLineNumberArea(const QRect &rect, int dy)
 {
-    if (dy)
+    if (dy != 0)
+    {
         lineNumberArea->scroll(0, dy);
+    }
     else
+    {
         lineNumberArea->update(0, rect.y(), lineNumberArea->width(), rect.height());
+    }
 
     if (rect.contains(viewport()->rect()))
+    {
         updateLineNumberAreaWidth(0);
+    }
 }
 
 //![slotUpdateRequest]
 
 //![resizeEvent]
 // 尺寸调整函数
-void TexEdit::resizeEvent(QResizeEvent *e)
+void TexEdit::resizeEvent(QResizeEvent *event)
 {
-    QPlainTextEdit::resizeEvent(e);
+    QPlainTextEdit::resizeEvent(event);
 
-    QRect cr = contentsRect();
-    lineNumberArea->setGeometry(QRect(cr.left(), cr.top(), lineNumberAreaWidth(), cr.height()));
+    QRect rect = contentsRect();
+    lineNumberArea->setGeometry(QRect(rect.left(), rect.top(), lineNumberAreaWidth(), rect.height()));
 }
 
 //![resizeEvent]
@@ -100,7 +106,7 @@ void TexEdit::highlightCurrentLine()
     if (!isReadOnly())
     {
         QTextEdit::ExtraSelection selection;
-
+        // TODO:根据主题的颜色进行修改
         QColor lineColor = QColor(Qt::red).lighter(160);
 
         selection.format.setBackground(lineColor);

@@ -49,7 +49,6 @@ class CentralWidgetPrivate
 
 void CentralWidgetPrivate::setupUI()
 {
-    // Q_INIT_RESOURCE(ads);
 
     CDockManager::setConfigFlag(CDockManager::XmlCompressionEnabled, false); // 不对xml文件进行压缩
     CDockManager::setAutoHideConfigFlags(CDockManager::DefaultAutoHideConfig);
@@ -65,7 +64,7 @@ void CentralWidgetPrivate::setupUI()
     // as it only shows when tab title elided.
     // So disable dynamic tabs menu visibility.
     ads::CDockManager::setConfigFlag(ads::CDockManager::DockAreaDynamicTabsMenuButtonVisibility, false);
-    ads::CDockManager::setConfigFlag(ads::CDockManager::FocusHighlighting, true);
+    // ads::CDockManager::setConfigFlag(ads::CDockManager::FocusHighlighting, true);
     ads::CDockManager::setConfigFlag(ads::CDockManager::EqualSplitOnInsertion, true);
     ads::CDockManager::setConfigFlag(ads::CDockManager::MiddleMouseButtonClosesTab, true);
 

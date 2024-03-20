@@ -5,14 +5,14 @@ target("YRMathFormula")
     add_files("$(projectdir)/src/*.h","$(projectdir)/src/ui/*.h","$(projectdir)/src/manager/*.h","$(projectdir)/src/edit/*.h")
     add_headerfiles("$(projectdir)/src/*.h","$(projectdir)/src/ui/*.h","$(projectdir)/src/manager/*.h","$(projectdir)/src/edit/*.h")
     -- add_files("$(projectdir)/src/*.qrc")
+
+    --qrc
+    --add_files("$(projectdir)/src/style/ads/ads.qrc","$(projectdir)/src/style/dark/darkstyle.qrc","$(projectdir)/src/style/light/lightstyle.qrc")
     add_extrafiles("./*.qrc")
     add_includedirs("$(projectdir)/src","$(projectdir)/3rd/qtadvancedcss/src","$(projectdir)/src/utils","$(projectdir)/3rd/singleapplication")
-    -- lexilla头文件
-    add_includedirs("$(projectdir)/3rd/lexilla/include")
-    -- scintilla头文件
-    add_includedirs("$(projectdir)/3rd/scintilla/qt/ScintillaEdit","$(projectdir)/3rd/scintilla/qt/ScintillaEditBase","$(projectdir)/3rd/scintilla/include","$(projectdir)/3rd/scintilla/src")
-    add_deps("qtadvancedcss","singleapplication","scintilla","lexilla")
+        add_deps("qtadvancedcss","singleapplication")
     add_packages("ads","MicroTex")
+    add_defines("QAPPLICATION_CLASS=QApplication")
     add_frameworks("QtGui","QtWidgets","QtCore","QtSvg","QtConcurrent")
     
 

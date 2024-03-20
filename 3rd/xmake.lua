@@ -2,7 +2,7 @@ add_rules("mode.debug", "mode.release")
 
 package("ads")
     add_deps("cmake")
-    set_sourcedir(path.join(os.scriptdir(), "ads"))
+    set_sourcedir(path.join(os.scriptdir(), "notepadnext/src/ads"))
     on_install(function (package)
         import("detect.sdks.find_qt")
         local qt = find_qt(nil,{verbose = true})
@@ -90,8 +90,68 @@ target_end()
 
 target("singleapplication")
     add_rules("qt.static")
-    add_files("singleapplication/*.cpp")
-    add_files("singleapplication/*.h")
-    add_includedirs("singleapplication")
+    add_files("$(projectdir)/3rd/singleapplication/*.cpp")
+    add_files("$(projectdir)/3rd/singleapplication/*.h")
+    add_includedirs("$(projectdir)/3rd/singleapplication")
+    add_defines("QAPPLICATION_CLASS=QApplication")
     add_frameworks("QtCore","QtNetwork","QtGui","QtWidgets")
 target_end()
+
+target("scintlla")
+    add_rules("qt.static")
+    add_files("$(projectdir)/3rd/scintilla/src/*.cxx","$(projectdir)/3rd/scintilla/qt/ScintillaEdit/*.cpp","$(projectdir)/3rd/scintilla/qt/ScintillaEditBase/*.cpp")
+    add_files("$(projectdir)/3rd/scintilla/src/*.h","$(projectdir)/3rd/scintilla/qt/ScintillaEdit/*.h","$(projectdir)/3rd/scintilla/qt/ScintillaEditBase/*.h")
+    add_includedirs("$(projectdir)/3rd/scintilla/include","$(projectdir)/3rd/scintilla/qt/ScintillaEdit","$(projectdir)/3rd/scintilla/qt/ScintillaEditBase","$(projectdir)/3rd/scintilla/src")
+    add_frameworks("QtCore","QtGui","QtWidgets")
+    add_defines("SCINTILLA_QT=1 MAKING_LIBRARY=1 SCI_LEXER=1 _CRT_SECURE_NO_DEPRECATE=1")
+    if is_mode("release") then 
+        add_defines("EXPORT_IMPORT_API=NDEBUG=1")
+    end 
+target_end()
+
+target("lexilla")
+    set_kind("static")
+    add_files("$(projectdir)/3rd/lexilla/lexers/LexLaTex.cxx","$(projectdir)/3rd/lexilla/lexers/LexTex.cxx")
+    add_files("$(projectdir)/3rd/lexilla/src/*.cxx","$(projectdir)/3rd/lexilla/lexlib/*.cxx","$(projectdir)/3rd/lexilla/access/*.cxx")
+    -- add_files("$(projectdir)/lexilla/lexlib/*.h")
+    add_includedirs("$(projectdir)/3rd/lexilla/include","$(projectdir)/3rd/scintilla/include","$(projectdir)/3rd/lexilla/lexlib","$(projectdir)/3rd/lexilla/access")
+target_end()
+
+-- target("uchardet")
+--     set_kind("static")
+--     add_files("$(projectdir)/3rd/uchardet/src/*.cpp","$(projectdir)/3rd/uchardet/src/LangModels/*.cpp")
+--     add_includedirs("$(projectdir)/3rd/uchardet/src")
+-- target_end()
+
+target("lua")
+    set_kind("static")
+    add_files("$(projectdir)/3rd/lua/src/*.c")
+    add_includedirs("$(projectdir)/3rd/lua/src")
+target_end()
+
+target("QSimpleUpdater")
+    add_rules("qt.static")
+    add_files("$(projectdir)/3rd/QSimpleUpdater/src/*.cpp")
+    add_files("$(projectdir)/3rd/QSimpleUpdater/src/*.h")
+    add_files("$(projectdir)/3rd/QSimpleUpdater/src/*.ui")
+    add_includedirs("$(projectdir)/3rd/QSimpleUpdater/src")
+    add_includedirs("$(projectdir)/3rd/QSimpleUpdater/include")
+    add_frameworks("QtGui","QtWidgets","QtCore","QtNetwork")
+target_end()
+if is_plat("windows") then
+    if is_mode("debug") then
+        set_runtimes("MDd")
+        add_requires("ads", { debug = is_mode("debug") })
+    else
+        set_runtimes("MD")        
+        add_requires("ads")
+    end
+else 
+    if is_mode("debug") then
+        add_requires("ads",{ debug = is_mode("debug") })
+    else 
+        add_requires("ads")
+    end 
+end
+
+

@@ -9,6 +9,7 @@
 #include "ui/qttexrenderwidget.h"
 #include "ui/texedit.h"
 #include "yapplication.h"
+
 // Qt
 #include <QComboBox>
 #include <QFontDialog>
@@ -42,7 +43,7 @@ class RenderOptionWidgetPrivate
 void RenderOptionWidgetPrivate::initUI()
 {
 #ifdef QT_DEBUG
-    qInfo() << Q_FUNC_INFO << " ," << __FILE__ << " ," << __LINE__;
+    qInfo() << "[" << yApp->elapseTime() << "]" << Q_FUNC_INFO << " ," << __FILE__ << " ," << __LINE__;
 #endif
 
     auto *texRenderWidget = new QtTeXRenderWidget();
