@@ -6,8 +6,9 @@
 #include "qobject.h"
 #include "qt_tex_render.h"
 #include "samples.h"
+#include "texeditor.h"
 #include "ui/qttexrenderwidget.h"
-#include "ui/texedit.h"
+#include "ui/texeditor.h"
 #include "yapplication.h"
 
 // Qt
@@ -33,7 +34,7 @@ class RenderOptionWidgetPrivate
 
     RenderOptionWidget *m_this;
     TeXRender *_render;
-    TexEdit *_texedit;
+    TexEditor *_texedit;
     microtex::Samples _samples;
     MicroTexManager *m_microTexManager;
     QComboBox *m_fontComboBox;
@@ -109,7 +110,7 @@ RenderOptionWidget::RenderOptionWidget(QWidget *parent) : QWidget(parent), d_ptr
 }
 void RenderOptionWidget::setTexEdit(QPlainTextEdit *p_edit)
 {
-    d_ptr->_texedit = qobject_cast<TexEdit *>(p_edit);
+    d_ptr->_texedit = qobject_cast<TexEditor *>(p_edit);
 }
 
 RenderOptionWidget::~RenderOptionWidget()

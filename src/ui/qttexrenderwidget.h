@@ -1,6 +1,5 @@
 ﻿#pragma once
 
-
 #include "ui/qt_tex_render.h"
 #include <microtex.h>
 
@@ -26,5 +25,4 @@ class QtTeXRenderWidget : public QWidget, public TeXRender
   private:
     QtTeXRenderWidgetPrivate *d_ptr;
     friend class QtTeXRenderWidgetPrivate;
-	
 };

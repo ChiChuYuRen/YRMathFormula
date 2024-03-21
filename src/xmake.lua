@@ -11,7 +11,7 @@ target("YRMathFormula")
     add_extrafiles("./*.qrc")
     add_includedirs("$(projectdir)/src","$(projectdir)/3rd/qtadvancedcss/src","$(projectdir)/src/utils","$(projectdir)/3rd/singleapplication")
         add_deps("qtadvancedcss","singleapplication")
-    add_packages("ads","MicroTex")
+    add_packages("ads","MicroTex","KSyntaxHighlighting")
     add_defines("QAPPLICATION_CLASS=QApplication")
     add_frameworks("QtGui","QtWidgets","QtCore","QtSvg","QtConcurrent")
     

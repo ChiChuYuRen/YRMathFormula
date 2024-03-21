@@ -1,14 +1,21 @@
 add_rules("mode.debug", "mode.release")
 
 package("ads")
+    set_description("Advanced Docking System for Qt")
+    set_license("LGPL-2.1")
+    set_urls("https://github.com/githubuser0xFFFF/Qt-Advanced-Docking-System/archive/refs/tags/$(version).zip")
+
+    add_versions("4.2.1","0deb3a9f8cb5b2d3c9eac53911fcc230da3cc233dee78a524499720d1950fc83")
+
     add_deps("cmake")
-    set_sourcedir(path.join(os.scriptdir(), "notepadnext/src/ads"))
+    -- set_sourcedir(path.join(os.scriptdir(), "ads"))
     on_install(function (package)
         import("detect.sdks.find_qt")
         local qt = find_qt(nil,{verbose = true})
         local configs = {
+        "-DADS_VERSION=" .. package:version(),
         "-DBUILD_EXAMPLES=OFF",
-        "-DBUILD_STATIC=ON",
+        -- "-DBUILD_STATIC=ON",
         "-DCMAKE_PREFIX_PATH=" .. qt.sdkdir}
         if is_plat("windows") then
             table.insert(configs, "-DCMAKE_CXX_FLAGS=\"/MP\"")
@@ -31,8 +38,11 @@ package("ads")
 package_end()
 
 package("MicroTex")
+    set_description("A dynamic, cross-platform, and embeddable LaTeX rendering library")
+    set_license("MIT")
+    set_urls("https://github.com/ChiChuYuRen/MicroTeX.git")
     add_deps("cmake")
-    set_sourcedir(path.join(os.scriptdir(), "MicroTex"))
+    -- set_sourcedir(path.join(os.scriptdir(), "MicroTex"))
     on_install(function (package)
         import("detect.sdks.find_qt")
         local qt = find_qt(nil,{verbose = true})
@@ -51,8 +61,10 @@ package_end()
 
 package("CTK")
     set_description("A set of common support code for medical imaging, surgical navigation, and related purposes.")
+    set_urls("https://github.com/commontk/CTK.git")
+    set_license("Apache-2.0")
     add_deps("cmake")
-    set_sourcedir(path.join(os.scriptdir(), "CTK"))
+    -- set_sourcedir(path.join(os.scriptdir(), "CTK"))
     on_install(function (package)
         import("detect.sdks.find_qt")
         local qt = find_qt(nil,{verbose = true})
@@ -97,37 +109,47 @@ target("singleapplication")
     add_frameworks("QtCore","QtNetwork","QtGui","QtWidgets")
 target_end()
 
-target("scintlla")
-    add_rules("qt.static")
-    add_files("$(projectdir)/3rd/scintilla/src/*.cxx","$(projectdir)/3rd/scintilla/qt/ScintillaEdit/*.cpp","$(projectdir)/3rd/scintilla/qt/ScintillaEditBase/*.cpp")
-    add_files("$(projectdir)/3rd/scintilla/src/*.h","$(projectdir)/3rd/scintilla/qt/ScintillaEdit/*.h","$(projectdir)/3rd/scintilla/qt/ScintillaEditBase/*.h")
-    add_includedirs("$(projectdir)/3rd/scintilla/include","$(projectdir)/3rd/scintilla/qt/ScintillaEdit","$(projectdir)/3rd/scintilla/qt/ScintillaEditBase","$(projectdir)/3rd/scintilla/src")
-    add_frameworks("QtCore","QtGui","QtWidgets")
-    add_defines("SCINTILLA_QT=1 MAKING_LIBRARY=1 SCI_LEXER=1 _CRT_SECURE_NO_DEPRECATE=1")
-    if is_mode("release") then 
-        add_defines("EXPORT_IMPORT_API=NDEBUG=1")
-    end 
-target_end()
+package("ECM")
+    set_description("Extra modules and scripts for CMake.")
+    set_license("MIT")
+    set_urls("https://github.com/KDE/extra-cmake-modules/archive/refs/tags/$(version).zip")
 
-target("lexilla")
-    set_kind("static")
-    add_files("$(projectdir)/3rd/lexilla/lexers/LexLaTex.cxx","$(projectdir)/3rd/lexilla/lexers/LexTex.cxx")
-    add_files("$(projectdir)/3rd/lexilla/src/*.cxx","$(projectdir)/3rd/lexilla/lexlib/*.cxx","$(projectdir)/3rd/lexilla/access/*.cxx")
-    -- add_files("$(projectdir)/lexilla/lexlib/*.h")
-    add_includedirs("$(projectdir)/3rd/lexilla/include","$(projectdir)/3rd/scintilla/include","$(projectdir)/3rd/lexilla/lexlib","$(projectdir)/3rd/lexilla/access")
-target_end()
+    add_versions("v5.115.0","2866d67b6bd5719a582dc1f1cd55dcc16695bf56610974c82d7310fa2b4146a2")
+    add_deps("cmake")
+    -- set_sourcedir(path.join(os.scriptdir(), "ECM"))
+    on_install(function (package)
+        import("detect.sdks.find_qt")
+        local qt = find_qt(nil,{verbose = true})
+        local configs = {"-DBUILD_TESTING=OFF","-DCMAKE_PREFIX_PATH=" .. qt.sdkdir}
+        if is_plat("windows") then
+            table.insert(configs, "-DCMAKE_CXX_FLAGS=\"/MP\"")
+        end
+        table.insert(configs, "-DCMAKE_BUILD_TYPE=" .. (package:is_debug() and "Debug" or "Release"))
+        import("package.tools.cmake").install(package, configs)
+    end)
+package_end()
 
--- target("uchardet")
---     set_kind("static")
---     add_files("$(projectdir)/3rd/uchardet/src/*.cpp","$(projectdir)/3rd/uchardet/src/LangModels/*.cpp")
---     add_includedirs("$(projectdir)/3rd/uchardet/src")
--- target_end()
-
-target("lua")
-    set_kind("static")
-    add_files("$(projectdir)/3rd/lua/src/*.c")
-    add_includedirs("$(projectdir)/3rd/lua/src")
-target_end()
+package("KSyntaxHighlighting")
+    set_description("Syntax highlighting Engine for Structured Text and Code.")
+    set_urls("https://github.com/KDE/syntax-highlighting/archive/refs/tags/$(version).zip")
+    add_versions("v5.115.0","60b9d933282055cf56ca50069c82359ff09e8912fe9eddbb03a6c643ed296626")
+    add_deps("cmake","ECM")
+    -- set_sourcedir(path.join(os.scriptdir(), "KSyntaxHighlighting"))
+    on_install(function (package)
+        import("detect.sdks.find_qt")
+        local qt = find_qt(nil,{verbose = true})
+        local configs = {"-DBUILD_TESTING=OFF","-DCMAKE_PREFIX_PATH=" .. qt.sdkdir}
+        -- local configs={}
+        if is_plat("windows") then
+            table.insert(configs, "-DCMAKE_CXX_FLAGS=\"/MP\"")
+        end
+        table.insert(configs, "-DCMAKE_BUILD_TYPE=" .. (package:is_debug() and "Debug" or "Release"))
+        import("package.tools.cmake").install(package, configs)
+    end)
+    on_load(function (package)
+        package:add("includedirs","include/KF5/KSyntaxHighlighting")
+    end)
+package_end()
 
 target("QSimpleUpdater")
     add_rules("qt.static")
@@ -138,20 +160,6 @@ target("QSimpleUpdater")
     add_includedirs("$(projectdir)/3rd/QSimpleUpdater/include")
     add_frameworks("QtGui","QtWidgets","QtCore","QtNetwork")
 target_end()
-if is_plat("windows") then
-    if is_mode("debug") then
-        set_runtimes("MDd")
-        add_requires("ads", { debug = is_mode("debug") })
-    else
-        set_runtimes("MD")        
-        add_requires("ads")
-    end
-else 
-    if is_mode("debug") then
-        add_requires("ads",{ debug = is_mode("debug") })
-    else 
-        add_requires("ads")
-    end 
-end
+
 
 

@@ -6,16 +6,16 @@ set_languages("c++20")
 if is_plat("windows") then
     if is_mode("debug") then
         set_runtimes("MDd")
-        add_requires("ads","MicroTex", "CTK", { debug = is_mode("debug") })
+        add_requires("ads","MicroTex", "CTK","KSyntaxHighlighting", { debug = is_mode("debug") })
     else
         set_runtimes("MD")        
-        add_requires("ads","MicroTex","CTK")
+        add_requires("ads","MicroTex","CTK","KSyntaxHighlighting")
     end
 else 
     if is_mode("debug") then
-        add_requires("ads","MicroTex","CTK",{ debug = is_mode("debug") })
+        add_requires("ads","MicroTex","CTK","KSyntaxHighlighting",{ debug = is_mode("debug") })
     else 
-        add_requires("ads","MicroTex","CTK")
+        add_requires("ads","MicroTex","CTK","KSyntaxHighlighting")
     end 
 end
 

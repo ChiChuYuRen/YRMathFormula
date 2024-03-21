@@ -7,7 +7,7 @@
 #include "ui/favoritewidget.h"
 #include "ui/qttexrenderwidget.h"
 #include "ui/renderoptionwidget.h"
-#include "ui/texedit.h"
+#include "ui/texeditor.h"
 
 // Qt
 #include <QHBoxLayout>
@@ -74,7 +74,7 @@ void CentralWidgetPrivate::setupUI()
     m_DockManager->setStyleSheet(QStringLiteral(""));
 
     // 设置Tex编辑窗口//TODO:添加在那一边pin之后就停靠在那一边
-    auto *texedit = new TexEdit();
+    auto *texedit = new TexEditor();
     // auto *texedit = new ScintillaTex("a");
 
     // 设置渲染窗口//TODO:添加在那一边pin之后就停靠在那一边

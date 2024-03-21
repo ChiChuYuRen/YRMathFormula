@@ -1,15 +1,6 @@
-[submodule "3rd/MicroTex"]
-	path = 3rd/MicroTex
-	url = https://github.com/ChiChuYuRen/MicroTeX
 [submodule "3rd/qtadvancedcss"]
 	path = 3rd/qtadvancedcss
 	url = https://github.com/ChiChuYuRen/Qt-Advanced-Stylesheets.git
-[submodule "3rd/CTK"]
-	path = 3rd/CTK
-	url = https://github.com/ChiChuYuRen/CTK.git
-[submodule "3rd/log4qt"]
-	path = 3rd/log4qt
-	url = https://github.com/ChiChuYuRen/Log4Qt.git
 [submodule "3rd/QSimpleUpdater"]
 	path = 3rd/QSimpleUpdater
 	url = https://github.com/alex-spataru/QSimpleUpdater
