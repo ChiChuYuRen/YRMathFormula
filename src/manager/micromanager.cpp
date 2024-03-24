@@ -1,4 +1,5 @@
 ﻿#include "microtexmanager.h"
+#include "qstringliteral.h"
 #include "yapplication.h"
 
 // MicroTex
@@ -11,11 +12,19 @@ MicroTexManager::MicroTexManager(QObject * /*unused*/) : QObject(yApp)
 
 MicroTexManager::~MicroTexManager()
 {
-    release();
+    //release();
 }
+void MicroTexManager::init()
+{
+    /*
+    默认使用内置字体进行渲染
+    当在设置中选择外置字体时才从外部指定路径或者变量中加载
+    */
 
+    setDefaultFontInit(":/clm/STIXTwoMath", "");
+}
 void MicroTexManager::autoFontPathInit()
-{//TODO:解决加载大量字体占用内存过大问题
+{ // TODO:解决加载大量字体占用内存过大问题
     microtex::MicroTeX::setRenderGlyphUsePath(true);
     microtex::InitFontSenseAuto autoPath;
     microtex::Init variant;
@@ -41,6 +50,10 @@ void MicroTexManager::setDefaultFontInit(const QString &clm, const QString &font
 
     microtex::PlatformFactory::registerFactory("qt", std::make_unique<microtex::PlatformFactory_qt>());
     microtex::PlatformFactory::activate("qt");
+#ifdef QT_DEBUG
+    qInfo() << "[" << yApp->elapseTime() << "]" << Q_FUNC_INFO << " ," << __FILE__ << " ," << __LINE__;
+#endif
+    qInfo() << QStringLiteral("初始化内置字体成功");
 }
 
 void MicroTexManager::setDefaultFont(const QString &clm)

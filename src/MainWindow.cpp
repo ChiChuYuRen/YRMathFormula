@@ -1,6 +1,4 @@
 ﻿#include "mainwindow.h"
-#include "manager/microtexmanager.h"
-#include "qobject.h"
 #include "ui/centralwidget.h"
 #include "yapplication.h"
 
@@ -12,12 +10,6 @@
 #include <QMenuBar>
 #include <QPushButton>
 #include <QVBoxLayout>
-// ACSS
-#include <QtAdvancedStylesheet.h>
-
-// MicroTex
-#include <graphic_qt.h>
-#include <microtex.h>
 
 /**
  * Private data class - pimpl
@@ -38,14 +30,11 @@ class MainWindowPrivate
     {
     }
     ~MainWindowPrivate();
-    void setupAcss();
     void setupMenuBar();
     void initUI();
     void createThemeColorDockWidget();
     void fillThemeMenu();
 
-    /// \brief 初始化MicroTex引擎
-    void setupMicroTex();
 
     void updateThemeColorButtons();
 };
@@ -54,10 +43,6 @@ MainWindowPrivate::~MainWindowPrivate()
 {
 }
 
-void MainWindowPrivate::setupMicroTex()
-{
-    MicroTexManager::autoFontPathInit();
-}
 
 /**
  * @brief 创建一个Change Theme窗口
@@ -146,20 +131,10 @@ QMenuBar *MainWindow::getMenuBar() const
 
 void MainWindowPrivate::initUI()
 {
-    setupMicroTex();
+
 
     m_centralWidget = new CentralWidget(m_this);
     setupMenuBar();
-    setupAcss();
-}
-/**
- * @brief 设置Acss相关参数并加载样式
- *
- */
-void MainWindowPrivate::setupAcss()
-{
-    QObject::connect(yApp->getACSSManager(), SIGNAL(stylesheetChanged()), m_this,
-                     SLOT(onStyleManagerStylesheetChanged()));
     createThemeColorDockWidget();
     fillThemeMenu();
 }

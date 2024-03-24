@@ -42,7 +42,7 @@ class CentralWidgetPrivate
     CDockManager *m_DockManager;
     QVBoxLayout *m_centralLay;
 
-    Highlighter *m_highlighter;
+    // Highlighter *m_highlighter;
 
     microtex::Samples _samples;
 };
@@ -83,14 +83,14 @@ void CentralWidgetPrivate::setupUI()
     // renderWidget->setScintillaTex(texedit);
     auto *renderDockWidget = new CDockWidget("Render");
     renderDockWidget->setWidget(renderWidget);
-    // renderDockWidget->setMinimumSizeHintMode(CDockWidget::MinimumSizeHintFromDockWidget);
-    // renderDockWidget->setMinimumSize(200, 150);
-    // auto RenderArea = m_DockManager->addDockWidget(DockWidgetArea::RightDockWidgetArea, renderDockWidget);
-    auto RenderArea = m_DockManager->setCentralWidget(renderDockWidget);
-    RenderArea->setAllowedAreas(DockWidgetArea::OuterDockAreas);
+    renderDockWidget->setMinimumSizeHintMode(CDockWidget::MinimumSizeHintFromDockWidget);
+    renderDockWidget->setMinimumSize(200, 150);
+    auto RenderArea = m_DockManager->addDockWidget(DockWidgetArea::RightDockWidgetArea, renderDockWidget);
+    // auto RenderArea = m_DockManager->setCentralWidget(renderDockWidget);
+    // RenderArea->setAllowedAreas(DockWidgetArea::OuterDockAreas);
 
-    texedit->setPlaceholderText("This is the central editor. Enter your text here.");
-    texedit->setFont(QFont("FiraCode Nerd Font", 12));
+    // texedit->setPlaceholderText("This is the central editor. Enter your text here.");
+    // texedit->setFont(QFont("FiraCode Nerd Font", 12));
     CDockWidget *TexEditDockWidget = new CDockWidget("TexEdit");
     TexEditDockWidget->setFeatures(CDockWidget::DockWidgetPinnable);
     TexEditDockWidget->setWidget(texedit);
@@ -122,7 +122,7 @@ void CentralWidgetPrivate::setupUI()
         m_DockManager->addAutoHideDockWidget(SideBarLocation::SideBarBottom, LogDockWidget);
     logautoHideContainer->setSize(240);*/
 
-    m_highlighter = new Highlighter(texedit->document());
+    // m_highlighter = new Highlighter(texedit->document());
     // 布局管理
     m_centralLay->addWidget(m_DockManager);
     m_this->setLayout(m_centralLay);

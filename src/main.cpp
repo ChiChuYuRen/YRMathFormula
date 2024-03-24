@@ -5,19 +5,9 @@
 #include "qobject.h"
 #include "yapplication.h"
 
-#include "MainWindow.h"
-#include "utils/sharedlock.h"
-
 #include <QMessageBox>
 int main(int argc, char *argv[])
 {
-
-    // SharedLock lock("YRMathFormula");
-    // if (!lock.hasLock())
-    // {
-    //     QMessageBox::warning(nullptr, "YRMathFormula", QObject::tr("YRMathFormula is already running"));
-    //     return 1;
-    // }
 
 #if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
     QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);

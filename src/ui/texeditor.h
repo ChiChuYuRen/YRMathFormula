@@ -41,9 +41,9 @@ class TexEditor : public QPlainTextEdit
     void updateSidebarArea(const QRect &rect, int dy);
     void highlightCurrentLine();
 
-    QTextBlock blockAtPosition(int y) const;
-    bool isFoldable(const QTextBlock &block) const;
-    bool isFolded(const QTextBlock &block) const;
+     QTextBlock blockAtPosition(int y) const;
+     bool isFoldable(const QTextBlock &block) const;
+     bool isFolded(const QTextBlock &block) const;
     void toggleFold(const QTextBlock &block);
 
     KSyntaxHighlighting::Repository m_repository;
@@ -64,31 +64,4 @@ class TexEditorSidebar : public QWidget
   private:
     TexEditor *m_codeEditor;
 };
-// class LineNumberArea : public QWidget
-// {
-//   public:
-//     LineNumberArea(TexEdit *editor) : QWidget(editor)
-//     {
-//         codeEditor = editor;
-//     }
 
-//     QSize sizeHint() const override
-//     {
-//         return QSize(codeEditor->lineNumberAreaWidth(), 0);
-//     }
-
-//   protected:
-//     void paintEvent(QPaintEvent *event) override
-//     {
-//         codeEditor->lineNumberAreaPaintEvent(event);
-//     }
-
-//   private:
-//     TexEdit *codeEditor;
-// };
-// enum CompleteState
-// {
-//     Ignore = 0,
-//     Showing = 1,
-//     Hide = 2
-// };

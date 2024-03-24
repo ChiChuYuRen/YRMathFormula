@@ -9,6 +9,8 @@ class MicroTexManager final : QObject
   public:
     explicit MicroTexManager(QObject *parent = nullptr);
     ~MicroTexManager() final;
+
+    void init();
     /**
      * @brief 从默认字体路径中初始化字体
      *

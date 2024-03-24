@@ -1,13 +1,10 @@
 ﻿#pragma once
 
 // acss
-#include "qjsonobject.h"
 #define ACSS_STATIC
 #include <QtAdvancedStylesheet.h>
 
 // Qt
-#include <QMutex>
-#include <QObject>
 
 class ACSSManager : public acss::QtAdvancedStylesheet
 {
@@ -16,19 +13,19 @@ class ACSSManager : public acss::QtAdvancedStylesheet
     explicit ACSSManager(QObject *parent = nullptr);
     // static ACSSManager *_instance;
 
-  public:
     void init();
+    void defaultInit();
+    // 检查style文件夹下的文件是否齐全
+    bool checkStyleFiles();
 
     bool parseThemeJsonFile();
 
-	bool saveJsonFile() const;
+    bool saveJsonFile() const;
 
-    void changeFont(const QString &family,int size);
-
+    void changeFont(const QString &family, int size);
 
     void changeLineHeight(int height);
 
-    
     void update();
 
   private:

@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "manager/acssmanager.h"
+#include "manager/microtexmanager.h"
 
 #include <QApplication>
 #include <QElapsedTimer >
@@ -43,8 +44,12 @@ class YApplication : public SingleApplication
     void sendInfoToPrimaryInstance();
     void setStyle(YRStyle &p_style);
 
+  private slots:
+    void onStyleManagerStylesheetChanged();
+
   private:
     ACSSManager *m_acssManager;
+    MicroTexManager *m_mTeXManager;
     MainWindow *m_mainWindow = Q_NULLPTR;
 
     QElapsedTimer m_timer;

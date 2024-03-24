@@ -8,9 +8,10 @@ target("YRMathFormula")
 
     --qrc
     --add_files("$(projectdir)/src/style/ads/ads.qrc","$(projectdir)/src/style/dark/darkstyle.qrc","$(projectdir)/src/style/light/lightstyle.qrc")
+    add_files("./*qrc")
     add_extrafiles("./*.qrc")
     add_includedirs("$(projectdir)/src","$(projectdir)/3rd/qtadvancedcss/src","$(projectdir)/src/utils","$(projectdir)/3rd/singleapplication")
-        add_deps("qtadvancedcss","singleapplication")
+    add_deps("qtadvancedcss","singleapplication")
     add_packages("ads","MicroTex","KSyntaxHighlighting")
     add_defines("QAPPLICATION_CLASS=QApplication")
     add_frameworks("QtGui","QtWidgets","QtCore","QtSvg","QtConcurrent")

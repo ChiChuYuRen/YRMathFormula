@@ -1,4 +1,5 @@
 ﻿#include "texeditor.h"
+#include "yapplication.h"
 
 #include <KSyntaxHighlighting/Definition>
 #include <KSyntaxHighlighting/FoldingRegion>
@@ -14,8 +15,6 @@
 #include <QMenu>
 #include <QPainter>
 #include <QPalette>
-
-
 
 TexEditorSidebar::TexEditorSidebar(TexEditor *editor) : QWidget(editor), m_codeEditor(editor)
 {
@@ -59,13 +58,17 @@ TexEditor::TexEditor(QWidget *parent)
     connect(this, &QPlainTextEdit::updateRequest, this, &TexEditor::updateSidebarArea);
     connect(this, &QPlainTextEdit::cursorPositionChanged, this, &TexEditor::highlightCurrentLine);
 
+    // 设置默认高亮为Latex
+    const auto def = m_repository.definitionForName("LaTeX");
+    m_highlighter->setDefinition(def);
+    // TODO:根据acss主题来初始化编辑器主题
+    const auto theme = m_repository.theme("Breeze Dark");
+    setTheme(theme);
     updateSidebarGeometry();
     highlightCurrentLine();
 }
 
-TexEditor::~TexEditor()
-{
-}
+TexEditor::~TexEditor() = default;
 
 void TexEditor::openFile(const QString &fileName)
 {
@@ -128,6 +131,7 @@ void TexEditor::contextMenuEvent(QContextMenuEvent *event)
     }
     connect(hlActionGroup, &QActionGroup::triggered, this, [this](QAction *action) {
         const auto defName = action->data().toString();
+        qInfo() << "Switching to syntax definition" << defName;
         const auto def = m_repository.definitionForName(defName);
         m_highlighter->setDefinition(def);
     });
@@ -149,6 +153,7 @@ void TexEditor::contextMenuEvent(QContextMenuEvent *event)
     }
     connect(themeGroup, &QActionGroup::triggered, this, [this](QAction *action) {
         const auto themeName = action->data().toString();
+        // qInfo() << "Switching to theme" << themeName;
         const auto theme = m_repository.theme(themeName);
         setTheme(theme);
     });
@@ -194,7 +199,7 @@ void TexEditor::sidebarPaintEvent(QPaintEvent *event)
 {
     QPainter painter(m_sideBar);
     painter.fillRect(event->rect(), m_highlighter->theme().editorColor(KSyntaxHighlighting::Theme::IconBorder));
-
+    // yApp->getACSSManager()->themeColor("secondaryLightColor"));
     auto block = firstVisibleBlock();
     auto blockNumber = block.blockNumber();
     int top = blockBoundingGeometry(block).translated(contentOffset()).top();
@@ -269,7 +274,8 @@ void TexEditor::updateSidebarArea(const QRect &rect, int dy)
 void TexEditor::highlightCurrentLine()
 {
     QTextEdit::ExtraSelection selection;
-    selection.format.setBackground(QColor(m_highlighter->theme().editorColor(KSyntaxHighlighting::Theme::CurrentLine)));
+    selection.format.setBackground(QColor(m_highlighter->theme().editorColor(
+        KSyntaxHighlighting::Theme::CurrentLine))); // yApp->getACSSManager()->themeColor("secondaryColor"));
     selection.format.setProperty(QTextFormat::FullWidthSelection, true);
     selection.cursor = textCursor();
     selection.cursor.clearSelection();

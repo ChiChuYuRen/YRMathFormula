@@ -1,9 +1,9 @@
 ﻿#include "yapplication.h"
 #include "MainWindow.h"
 #include "manager/debugmanager.h"
-#include "yapplication.h"
 
 #include <QDesktopWidget>
+#include <QtConcurrent/QtConcurrent>
 
 YApplication::YApplication(int &argc, char **argv)
     : SingleApplication(argc, argv), m_dark(":qdarkstyle/dark/darkstyle.qss"),
@@ -22,11 +22,18 @@ YApplication::~YApplication()
 
 void YApplication::init()
 {
-    // loadStyle();
+    // 加载设置
 
-    // setStyle(m_style);
+    // 初始化主题管理
     m_acssManager = new ACSSManager(this);
     m_acssManager->init();
+    QObject::connect(yApp->getACSSManager(), SIGNAL(stylesheetChanged()), this,
+                     SLOT(onStyleManagerStylesheetChanged()));
+    // 初始化MicroTeX
+    m_mTeXManager = new MicroTexManager(this);
+    QtConcurrent::run(m_mTeXManager, &MicroTexManager::init);
+    // m_mTeXManager->init();
+
     m_mainWindow = new MainWindow(this);
     // 程序居中 TODO:解决不同显示器,不同分辨率下程序位置和大小
     m_mainWindow->resize(1920, 1080);
@@ -79,6 +86,11 @@ void YApplication::setStyle(YRStyle &p_style)
         QTextStream data(&m_light);
         setStyleSheet(data.readAll());
     }
+}
+
+void YApplication::onStyleManagerStylesheetChanged()
+{
+    yApp->setStyleSheet(yApp->getACSSManager()->styleSheet());
 }
 /*
   QDesktopWidget * desktop = QApplication::desktop();
