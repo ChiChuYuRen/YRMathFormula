@@ -54,11 +54,12 @@ class MicroTexManager final : QObject
     void updateFont(const QString &clm, const QString &font);
 
     static void setDefaultFont(const QString &clm);
+    static void setDefaultMainFont(const QString &fontFamily);
 
     QString getDefaultClm() const;
     QString getDefaultFont() const;
-    static QStringList getMathFontNames();
-    static QStringList getFontFamilies();
+    QStringList &getMathFontNames();
+    QStringList &getFontFamilies();
 
   private:
     static void release();
@@ -69,4 +70,6 @@ class MicroTexManager final : QObject
     // 用户自定义的字体
     QString m_outsideClm;
     QString m_outsideFont;
+    QStringList fontlist;
+    QStringList fontfamilies;
 };

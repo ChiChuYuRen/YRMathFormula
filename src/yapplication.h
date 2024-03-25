@@ -40,7 +40,10 @@ class YApplication : public SingleApplication
     {
         return m_mainWindow;
     }
-
+    MicroTexManager *getMicroTexManager()
+    {
+        return m_mTeXManager;
+    }
     void sendInfoToPrimaryInstance();
     void setStyle(YRStyle &p_style);
 

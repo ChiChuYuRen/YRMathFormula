@@ -2,6 +2,6 @@
     <qresource prefix="/">
     <file compress="9" compress-algo="zlib" alias="qss/dark">res/qss/dark_teal.css</file>
     <file compress="9" compress-algo="zlib" alias="qss/light">res/qss/light_teal.css</file>
-    <file compress="9" compress-algo="zlib" alias="clm/STIXTwoMath">res/clm/STIXTwoMath-Regular.clm2</file>
+    <file compress="9" compress-algo="zlib" alias="clm/Garamond">res/clm/Garamond-Math.clm2</file>
     </qresource>
 </RCC>

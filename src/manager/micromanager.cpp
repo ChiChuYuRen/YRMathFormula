@@ -1,4 +1,5 @@
 ﻿#include "microtexmanager.h"
+#include "qdir.h"
 #include "qstringliteral.h"
 #include "yapplication.h"
 
@@ -12,7 +13,7 @@ MicroTexManager::MicroTexManager(QObject * /*unused*/) : QObject(yApp)
 
 MicroTexManager::~MicroTexManager()
 {
-    //release();
+    // release();
 }
 void MicroTexManager::init()
 {
@@ -20,8 +21,21 @@ void MicroTexManager::init()
     默认使用内置字体进行渲染
     当在设置中选择外置字体时才从外部指定路径或者变量中加载
     */
+    QDir dir(yApp->applicationDirPath()+"/share/microtex");
+    // if()
+    // autoFontPathInit();
+    setDefaultFontInit(":/clm/Garamond", "");
 
-    setDefaultFontInit(":/clm/STIXTwoMath", "");
+    std::vector<std::string> fonts = microtex::MicroTeX::mathFontNames();
+    for (const auto &font : fonts)
+    {
+        fontlist.append(QString::fromStdString(font));
+    }
+    std::vector<std::string> fontFamiles = microtex::MicroTeX::mainFontFamilies();
+    for (const auto &font : fontFamiles)
+    {
+        fontfamilies.append(QString::fromStdString(font));
+    }
 }
 void MicroTexManager::autoFontPathInit()
 { // TODO:解决加载大量字体占用内存过大问题
@@ -60,6 +74,10 @@ void MicroTexManager::setDefaultFont(const QString &clm)
 {
     microtex::MicroTeX::setDefaultMathFont(clm.toStdString());
 }
+void MicroTexManager::setDefaultMainFont(const QString &fontFamily)
+{
+    microtex::MicroTeX::setDefaultMainFont(fontFamily.toStdString());
+}
 void MicroTexManager::updateFont(const QString &clm, const QString &font)
 {
     release();
@@ -80,24 +98,14 @@ void MicroTexManager::release()
     microtex::MicroTeX::release();
 }
 
-QStringList MicroTexManager::getMathFontNames()
+QStringList &MicroTexManager::getMathFontNames()
 {
-    QStringList list;
-    std::vector<std::string> fonts = microtex::MicroTeX::mathFontNames();
-    for (const auto &font : fonts)
-    {
-        list.append(QString::fromStdString(font));
-    }
-    return list;
+
+    return fontlist;
 }
 
-QStringList MicroTexManager::getFontFamilies()
+QStringList &MicroTexManager::getFontFamilies()
 {
-    QStringList list;
-    std::vector<std::string> fonts = microtex::MicroTeX::mainFontFamilies();
-    for (const auto &font : fonts)
-    {
-        list.append(QString::fromStdString(font));
-    }
-    return list;
+
+    return fontfamilies;
 }

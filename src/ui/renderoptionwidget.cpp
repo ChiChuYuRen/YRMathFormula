@@ -3,6 +3,7 @@
 #include "manager/microtexmanager.h"
 #include "qcombobox.h"
 #include "qglobal.h"
+#include "qlist.h"
 #include "qobject.h"
 #include "qt_tex_render.h"
 #include "samples.h"
@@ -53,7 +54,7 @@ void RenderOptionWidgetPrivate::initUI()
     texRenderWidget->setMinimumWidth(400);
 
     // 为渲染窗口设置滚动条
-    QScrollArea *scrollArea = new QScrollArea;
+    auto *scrollArea = new QScrollArea;
     scrollArea->setBackgroundRole(QPalette::Light);
     scrollArea->setWidget(texRenderWidget);
 
@@ -63,20 +64,21 @@ void RenderOptionWidgetPrivate::initUI()
     auto *toolLay = new QHBoxLayout();
     auto *tipLabel = new QLabel(QStringLiteral("修改字体大小"));
     auto *sizeBox = new QSpinBox();
-    sizeBox->setValue(texRenderWidget->getTextSize());
+    sizeBox->setValue(static_cast<int>(texRenderWidget->getTextSize()));
     auto *nextBtn = new QPushButton(QStringLiteral("下一个示例"));
     auto *renderBtn = new QPushButton(QStringLiteral("渲染"));
     auto *saveBtn = new QPushButton(QStringLiteral("保存为SVG图片"));
     auto *fontBtn = new QPushButton(QStringLiteral("设置字体"));
-    QMap<QString, QString> fontMap;
-    fontMap.insert("Garamond", "Garamond-Math");
-    fontMap.insert("latinmodern", "LatinModernMath-Regular");
-    fontMap.insert("STIXTwoMath", "STIX Two Math");
 
+    qInfo() << yApp->getMicroTexManager()->getMathFontNames() << "\n";
+    qInfo() << yApp->getMicroTexManager()->getFontFamilies() << "\n";
+    QStringList list = yApp->getMicroTexManager()->getMathFontNames();
+    // qInfo() << list << "\n";
     m_fontComboBox = new QComboBox();
-    foreach (const QString &fontName, fontMap.keys())
+    for (const QString &fontName : list)
     {
-        m_fontComboBox->addItem(fontName, fontMap.value(fontName));
+        // qInfo() << fontName << "\n";
+        m_fontComboBox->addItem(fontName);
     }
 
     toolLay->addWidget(tipLabel);
@@ -126,7 +128,7 @@ void RenderOptionWidget::fontSizeChanged(int size)
 void RenderOptionWidget::fontChanged(const QString &font)
 { // TODO: 这里需要修改,更改字体无变化
     QString text = d_ptr->_texedit->toPlainText();
-    MicroTexManager::setDefaultFont(d_ptr->m_fontComboBox->currentData().toString());
+    MicroTexManager::setDefaultFont(font); // d_ptr->m_fontComboBox->currentData().toString());
     d_ptr->_render->setLaTeX(text.toStdString());
 }
 

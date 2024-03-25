@@ -67,7 +67,7 @@ void YApplication::loadStyle()
 
     if (!m_dark.exists() && !m_light.exists())
     {
-        qInfo("Unable to set stylesheet, file not found\n");
+        qInfo() << "Unable to set stylesheet, file not found\n";
     }
 }
 
