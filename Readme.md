@@ -1,3 +1,3 @@
-#ifdef QT_DEBUG
-        qInfo() << "[" << yApp->elapseTime() << "]" << Q_FUNC_INFO << " ," << __FILE__ << " ," << __LINE__;
-#endif
+一个latex数学公式编辑器
+1) 可视化数学公式编辑
+2) 到处SVG图片
