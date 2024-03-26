@@ -29,7 +29,8 @@ class RenderOptionWidgetPrivate
 {
   public:
     RenderOptionWidgetPrivate(RenderOptionWidget *p)
-        : m_this(p), _samples("D:/Program/tex/MicroTeX/res/SAMPLES.tex"), m_microTexManager(new MicroTexManager())
+        : m_this(p), _samples((yApp->applicationDirPath() + "/share/SAMPLES.tex").toStdString()),
+          m_microTexManager(new MicroTexManager())
     {
     }
 
